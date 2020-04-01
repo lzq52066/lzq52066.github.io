@@ -10,33 +10,6 @@
       </tags>
   </entry>
   <entry>
-    <title>第一篇技术笔记</title>
-    <url>/2020/04/01/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>我是内容我是内容我是内容我是内容</p>
-<p>我是内容我是内容我是内容</p>
-<hr>
-<h1 id="我是内容我是内容"><a href="#我是内容我是内容" class="headerlink" title="我是内容我是内容"></a>我是内容我是内容</h1>]]></content>
-      <tags>
-        <tag>技术笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>第一篇随笔</title>
-    <url>/2020/04/01/%E7%AC%AC%E4%B8%80%E7%AF%87%E9%9A%8F%E7%AC%94/</url>
-    <content><![CDATA[<p>我是内容。。。。。</p>
-<hr>
-<p>我是内容。。。。。我是内容。。。。。</p>
-<more/>
-
-<p>我是内容。。。。。</p>
-<p>我是内容。。。。。</p>
-<p>我是内容。。。。。</p>
-]]></content>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>springboot</title>
     <url>/2020/03/31/springboot/</url>
     <content><![CDATA[<p>﻿# springboot学习笔记springboot入门学习</p>
@@ -291,6 +264,30 @@
       </tags>
   </entry>
   <entry>
+    <title>图片验证</title>
+    <url>/2020/04/01/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81/</url>
+    <content><![CDATA[<p>123</p>
+<p>213</p>
+<p><img src="/lzq52066/lzq52066.github/1.png" alt="123"></p>
+<img src="/lzq52066/lzq52066.github/04/01/%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81/1.png" class>
+
+]]></content>
+      <tags>
+        <tag>图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一篇技术笔记</title>
+    <url>/2020/04/01/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>我是内容我是内容我是内容我是内容</p>
+<p>我是内容我是内容我是内容</p>
+<hr>
+<h1 id="我是内容我是内容"><a href="#我是内容我是内容" class="headerlink" title="我是内容我是内容"></a>我是内容我是内容</h1>]]></content>
+      <tags>
+        <tag>技术笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>多线程</title>
     <url>/2020/03/31/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><blockquote>
@@ -383,7 +380,8 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaov.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xiaov.demo06_threadsafe.RunnableImpl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo06</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RunnableImpl runnable = <span class="keyword">new</span> RunnableImpl();</span><br><span class="line">        <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>但是结果不尽人意：</p>
-<p><img src="images/image-20200324152401124.png" alt="image-20200324152401124"></p>
+
+
 <h3 id="同步代码块"><a href="#同步代码块" class="headerlink" title="同步代码块"></a>同步代码块</h3><p>同步中的线程，没有执行完不会释放锁，同步外的线程没有锁进不去同步</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(锁对象)&#123;</span><br><span class="line">	<span class="comment">//可能出现的线程安全问题的代码（访问了共享数据的代码）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -427,7 +425,8 @@
 <li>在可能会出现安全问题的代码前调用lock接口的方法lock获取锁</li>
 <li>在可能会出现安全问题的代码后调用lock接口的方法unlock释放锁</li>
 </ul>
-<p><img src="images/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E5%9B%BE.bmp" alt="线程的状态图"></p>
+
+
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaov.demo08_lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实现卖100张票</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableImpl</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ticket = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">if</span> (ticket &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"正在卖第"</span> + ticket + <span class="string">"张票"</span>);</span><br><span class="line">                    ticket--;</span><br><span class="line">                    <span class="keyword">if</span> (ticket == <span class="number">0</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">"票卖完咯"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h2><p>Object类</p>
@@ -1022,13 +1021,29 @@
 </tr>
 <tr>
 <td>stringPropertyNames()</td>
-<td align="center">Set<String></td>
+<td align="center">Set<String></String></td>
 <td align="center">返回此属性列表中的键集，其中该键及其对应值是字符串</td>
 </tr>
 </tbody></table>
 ]]></content>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一篇随笔</title>
+    <url>/2020/04/01/%E7%AC%AC%E4%B8%80%E7%AF%87%E9%9A%8F%E7%AC%94/</url>
+    <content><![CDATA[<p>我是内容。。。。。</p>
+<hr>
+<p>我是内容。。。。。我是内容。。。。。</p>
+<more>
+
+<p>我是内容。。。。。</p>
+<p>我是内容。。。。。</p>
+<p>我是内容。。。。。</p>
+</more>]]></content>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
 </search>
