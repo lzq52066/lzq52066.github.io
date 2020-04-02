@@ -29,10 +29,10 @@
       </tags>
   </entry>
   <entry>
-    <title>多线程</title>
+    <title>多线程笔记</title>
     <url>/2020/04/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><blockquote>
-<p>并发:指两个或多个事件在同-一个时间段内发生。        交替进行<br>井行:指两个或多个事件在同一-时刻发生(同时发生)。    同时执行</p>
+<p>并发:指两个或多个事件在同-一个时间段内发生。        交替进行<br>并行:指两个或多个事件在同一-时刻发生(同时发生)。    同时执行</p>
 </blockquote>
 <p>构造方法</p>
 <table>
