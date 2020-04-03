@@ -13,207 +13,6 @@
       </tags>
   </entry>
   <entry>
-    <title>集合基础笔记</title>
-    <url>/2020/04/01/%E9%9B%86%E5%90%88/</url>
-    <content><![CDATA[<h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>存放的数据可以重复，并且有顺序</p>
-<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p>底层是Object[]数组<br>增删很慢，查询很快<br>初始容量为10</p>
-<a id="more"></a>
-
-<table>
-<thead>
-<tr>
-<th align="left">方法</th>
-<th align="center">返回值</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">add(Object o)</td>
-<td align="center">boolean</td>
-<td align="center">将指定的元素添加</td>
-</tr>
-<tr>
-<td align="left">addAll(Collection c)</td>
-<td align="center">boolean</td>
-<td align="center">按照指定 collection 的迭代器所返回的元素顺序，将该 collection 中的所有元素添加到此列表的尾部</td>
-</tr>
-<tr>
-<td align="left">clear()</td>
-<td align="center">void</td>
-<td align="center">清除所有元素</td>
-</tr>
-<tr>
-<td align="left">get(int index)</td>
-<td align="center">Object</td>
-<td align="center">返回此列表中指定位置上的元素</td>
-</tr>
-<tr>
-<td align="left">isEmpty()</td>
-<td align="center">boolean</td>
-<td align="center">如果不包含任何元素，则返回 true。</td>
-</tr>
-<tr>
-<td align="left">remove(int index)</td>
-<td align="center">Object</td>
-<td align="center">将指定的元素删除，并返回删除的元素</td>
-</tr>
-<tr>
-<td align="left">remove(Object object)</td>
-<td align="center">boolean</td>
-<td align="center">将指定的元素删除,并返回boolean</td>
-</tr>
-<tr>
-<td align="left">set(int index，Object o)</td>
-<td align="center">Object</td>
-<td align="center">用指定的元素替代此列表中指定位置上的元素，并返回原来的元素</td>
-</tr>
-<tr>
-<td align="left">size()</td>
-<td align="center">int</td>
-<td align="center">返回此列表中的元素数</td>
-</tr>
-<tr>
-<td align="left">toArray()</td>
-<td align="center">Object[]</td>
-<td align="center">按适当顺序（从第一个到最后一个元素）返回包含此列表中所有元素的数组</td>
-</tr>
-</tbody></table>
-<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><p>1.fori</p>
-<p>2.foreach</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> a : aList) &#123;</span><br><span class="line">    System.out.println(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.lambda</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">aList.forEach(o-&gt;&#123;</span><br><span class="line">    System.out.println(o);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p>底层是链表<br>增删很快，查询很慢</p>
-<p>所有的方法同ArrayList</p>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><p>底层是哈希表<br>存放数据无序，不可重复<br>HashSet()：初始容量为16，加载因子是0.75</p>
-<blockquote>
-<p>加载因子是数组的长度的百分比；16*0.75 = 12；<br>意思就是数组中的桶数达到12个时数组就要扩容；（复制），扩容到原来的2倍；</p>
-</blockquote>
-<p>没有下标，不能使用remove(int index)方法。<br>没有修改方法，要修改的话先删除再添加。<br>没有获取方法<br>其他方法和ArrayList相同</p>
-<table>
-<thead>
-<tr>
-<th align="left">方法</th>
-<th align="center">返回值</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">contains(Object o)</td>
-<td align="center">boolean</td>
-<td align="center">如果此 set 包含指定元素，则返回 true</td>
-</tr>
-<tr>
-<td align="left">remove(Object object)</td>
-<td align="center">boolean</td>
-<td align="center">将指定的元素删除,并返回boolean</td>
-</tr>
-</tbody></table>
-<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p>底层是二叉树<br>存放数据不可重复，但是有序（对于实现Comparable、Comparator接口）</p>
-<p>方法和HashSet相同</p>
-<h2 id="Collections工具类"><a href="#Collections工具类" class="headerlink" title="Collections工具类"></a>Collections工具类</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th align="center">返回值</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>sort(List<T> list)</T></td>
-<td align="center">void</td>
-<td align="center">根据元素的<strong>自然顺序</strong> 对指定列表按升序进行排序</td>
-</tr>
-</tbody></table>
-<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>双列型，存放数据无序，key不可以重复，value可以重复</p>
-<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><p>底层是哈希表<br>HashMap()：初始容量为16，默认加载因子是0.75</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th align="center">返回值</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>get(Object key)</td>
-<td align="center">V</td>
-<td align="center">返回指定键所映射的值；如果对于该键来说，此映射不包含任何映射关系，则返回 null</td>
-</tr>
-<tr>
-<td>put(K key , V value)</td>
-<td align="center">V</td>
-<td align="center">在此映射中关联指定值与指定键。与 key 关联的旧值；如果 key 没有任何映射关系，则返回 null。（返回 null 还可能表示该映射之前将 null 与 key 关联。）</td>
-</tr>
-<tr>
-<td>remove(Object key)</td>
-<td align="center">V</td>
-<td align="center">从此映射中移除指定键的映射关系（如果存在）。</td>
-</tr>
-<tr>
-<td>replace(K key , V value)</td>
-<td align="center">V</td>
-<td align="center">在指定的键已经存在并且有与之相关的映射值时才会将指定的键映射到指定的值。在指定的键不存在时，方法会return回来一个null</td>
-</tr>
-</tbody></table>
-<p>修改方法通过添加方法实现put( )，jdk8后可以使用replace( )。</p>
-<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><p>底层是二叉树，可以根据key进行排序，存放数据不可重复，但是有序（对于实现Comparable、Comparator接口）</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th align="center">返回值</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>containsKey(Object key)</td>
-<td align="center">boolean</td>
-<td align="center">如果此映射包含指定键的映射关系，则返回true。</td>
-</tr>
-<tr>
-<td>containsValue(Object value)</td>
-<td align="center">boolean</td>
-<td align="center">如果此映射为指定值映射一个或多个键，则返回 true。</td>
-</tr>
-</tbody></table>
-]]></content>
-      <tags>
-        <tag>技术笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式——抽象工厂</title>
-    <url>/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/</url>
-    <content><![CDATA[
-
-<p><br><a id="more"></a></p>
-<p>﻿计算机包括内存（RAM）、CPU等硬件设备，根据图示的“产品等级结构-产品族”示意图，使用抽象工厂模式实现计算机设备创建过程并绘制相应的类图，并用面向对象语言编程模拟。</p>
-<p>类图：</p>
-<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403210605726.png" class title="在这里插入图片描述">
-
-<ul>
-<li>Java实现：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaov.abstractfactory.computer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractFactory afPc=<span class="keyword">new</span> PcFactory();</span><br><span class="line">        afPc.getCPU().show();</span><br><span class="line">        afPc.getRAM().show();</span><br><span class="line"></span><br><span class="line">        AbstractFactory afMac = <span class="keyword">new</span> MacFactory();</span><br><span class="line">        afMac.getCPU().show();</span><br><span class="line">        afMac.getRAM().show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcCPU</span> <span class="keyword">implements</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"PC的CPU"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacCpu</span> <span class="keyword">implements</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Mac的CPU"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">RAM</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcRAM</span> <span class="keyword">implements</span> <span class="title">RAM</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"PC的RAM"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacRAM</span> <span class="keyword">implements</span> <span class="title">RAM</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Mac的RAM"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">    <span class="function">RAM <span class="title">getRAM</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">CPU <span class="title">getCPU</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcFactory</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RAM <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PcRAM();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CPU <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PcCPU();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacFactory</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RAM <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MacRAM();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CPU <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MacCpu();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行截图：</p>
-<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403213746661.png" class title="在这里插入图片描述">
-
-<ul>
-<li>c++实现</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPU</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcCPU</span> :</span><span class="keyword">public</span> CPU &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"PC的CPU"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacCPU</span> :</span><span class="keyword">public</span> CPU &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Mac的CPU"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RAM</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcRAM</span> :</span><span class="keyword">public</span> RAM &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"PC的RAM"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacRAM</span> :</span><span class="keyword">public</span> RAM &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Mac的RAM"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> RAM* <span class="title">getRAM</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> CPU* <span class="title">getCPU</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcFactory</span> :</span><span class="keyword">public</span> AbstractFactory &#123;</span><br><span class="line">	<span class="function">RAM* <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> PcRAM();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">CPU* <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> PcCPU();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacFactory</span> :</span><span class="keyword">public</span> AbstractFactory &#123;</span><br><span class="line">	<span class="function">RAM* <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> MacRAM();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">CPU* <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> MacCPU();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	AbstractFactory* afPc = <span class="keyword">new</span> PcFactory();</span><br><span class="line">	afPc-&gt;getCPU()-&gt;show();</span><br><span class="line">	afPc-&gt;getRAM()-&gt;show();</span><br><span class="line"></span><br><span class="line">	AbstractFactory* afMac = <span class="keyword">new</span> MacFactory();</span><br><span class="line">	afMac-&gt;getCPU()-&gt;show();</span><br><span class="line">	afMac-&gt;getRAM()-&gt;show();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行截图：</p>
-<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403213654447.png" class title="在这里插入图片描述">]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>多线程笔记</title>
     <url>/2020/04/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><blockquote>
@@ -473,6 +272,207 @@
 ]]></content>
       <tags>
         <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>集合基础笔记</title>
+    <url>/2020/04/01/%E9%9B%86%E5%90%88/</url>
+    <content><![CDATA[<h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>存放的数据可以重复，并且有顺序</p>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p>底层是Object[]数组<br>增删很慢，查询很快<br>初始容量为10</p>
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="center">返回值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">add(Object o)</td>
+<td align="center">boolean</td>
+<td align="center">将指定的元素添加</td>
+</tr>
+<tr>
+<td align="left">addAll(Collection c)</td>
+<td align="center">boolean</td>
+<td align="center">按照指定 collection 的迭代器所返回的元素顺序，将该 collection 中的所有元素添加到此列表的尾部</td>
+</tr>
+<tr>
+<td align="left">clear()</td>
+<td align="center">void</td>
+<td align="center">清除所有元素</td>
+</tr>
+<tr>
+<td align="left">get(int index)</td>
+<td align="center">Object</td>
+<td align="center">返回此列表中指定位置上的元素</td>
+</tr>
+<tr>
+<td align="left">isEmpty()</td>
+<td align="center">boolean</td>
+<td align="center">如果不包含任何元素，则返回 true。</td>
+</tr>
+<tr>
+<td align="left">remove(int index)</td>
+<td align="center">Object</td>
+<td align="center">将指定的元素删除，并返回删除的元素</td>
+</tr>
+<tr>
+<td align="left">remove(Object object)</td>
+<td align="center">boolean</td>
+<td align="center">将指定的元素删除,并返回boolean</td>
+</tr>
+<tr>
+<td align="left">set(int index，Object o)</td>
+<td align="center">Object</td>
+<td align="center">用指定的元素替代此列表中指定位置上的元素，并返回原来的元素</td>
+</tr>
+<tr>
+<td align="left">size()</td>
+<td align="center">int</td>
+<td align="center">返回此列表中的元素数</td>
+</tr>
+<tr>
+<td align="left">toArray()</td>
+<td align="center">Object[]</td>
+<td align="center">按适当顺序（从第一个到最后一个元素）返回包含此列表中所有元素的数组</td>
+</tr>
+</tbody></table>
+<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><p>1.fori</p>
+<p>2.foreach</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> a : aList) &#123;</span><br><span class="line">    System.out.println(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.lambda</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">aList.forEach(o-&gt;&#123;</span><br><span class="line">    System.out.println(o);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p>底层是链表<br>增删很快，查询很慢</p>
+<p>所有的方法同ArrayList</p>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><p>底层是哈希表<br>存放数据无序，不可重复<br>HashSet()：初始容量为16，加载因子是0.75</p>
+<blockquote>
+<p>加载因子是数组的长度的百分比；16*0.75 = 12；<br>意思就是数组中的桶数达到12个时数组就要扩容；（复制），扩容到原来的2倍；</p>
+</blockquote>
+<p>没有下标，不能使用remove(int index)方法。<br>没有修改方法，要修改的话先删除再添加。<br>没有获取方法<br>其他方法和ArrayList相同</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="center">返回值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">contains(Object o)</td>
+<td align="center">boolean</td>
+<td align="center">如果此 set 包含指定元素，则返回 true</td>
+</tr>
+<tr>
+<td align="left">remove(Object object)</td>
+<td align="center">boolean</td>
+<td align="center">将指定的元素删除,并返回boolean</td>
+</tr>
+</tbody></table>
+<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p>底层是二叉树<br>存放数据不可重复，但是有序（对于实现Comparable、Comparator接口）</p>
+<p>方法和HashSet相同</p>
+<h2 id="Collections工具类"><a href="#Collections工具类" class="headerlink" title="Collections工具类"></a>Collections工具类</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="center">返回值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sort(List<T> list)</T></td>
+<td align="center">void</td>
+<td align="center">根据元素的<strong>自然顺序</strong> 对指定列表按升序进行排序</td>
+</tr>
+</tbody></table>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>双列型，存放数据无序，key不可以重复，value可以重复</p>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><p>底层是哈希表<br>HashMap()：初始容量为16，默认加载因子是0.75</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="center">返回值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get(Object key)</td>
+<td align="center">V</td>
+<td align="center">返回指定键所映射的值；如果对于该键来说，此映射不包含任何映射关系，则返回 null</td>
+</tr>
+<tr>
+<td>put(K key , V value)</td>
+<td align="center">V</td>
+<td align="center">在此映射中关联指定值与指定键。与 key 关联的旧值；如果 key 没有任何映射关系，则返回 null。（返回 null 还可能表示该映射之前将 null 与 key 关联。）</td>
+</tr>
+<tr>
+<td>remove(Object key)</td>
+<td align="center">V</td>
+<td align="center">从此映射中移除指定键的映射关系（如果存在）。</td>
+</tr>
+<tr>
+<td>replace(K key , V value)</td>
+<td align="center">V</td>
+<td align="center">在指定的键已经存在并且有与之相关的映射值时才会将指定的键映射到指定的值。在指定的键不存在时，方法会return回来一个null</td>
+</tr>
+</tbody></table>
+<p>修改方法通过添加方法实现put( )，jdk8后可以使用replace( )。</p>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><p>底层是二叉树，可以根据key进行排序，存放数据不可重复，但是有序（对于实现Comparable、Comparator接口）</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="center">返回值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>containsKey(Object key)</td>
+<td align="center">boolean</td>
+<td align="center">如果此映射包含指定键的映射关系，则返回true。</td>
+</tr>
+<tr>
+<td>containsValue(Object value)</td>
+<td align="center">boolean</td>
+<td align="center">如果此映射为指定值映射一个或多个键，则返回 true。</td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>技术笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式——抽象工厂</title>
+    <url>/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/</url>
+    <content><![CDATA[<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82.png" class title="抽象工厂">
+
+<p><br><a id="more"></a></p>
+<p>﻿计算机包括内存（RAM）、CPU等硬件设备，根据图示的“产品等级结构-产品族”示意图，使用抽象工厂模式实现计算机设备创建过程并绘制相应的类图，并用面向对象语言编程模拟。</p>
+<p>类图：</p>
+<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403210605726.png" class title="在这里插入图片描述">
+
+<ul>
+<li>Java实现：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaov.abstractfactory.computer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractFactory afPc=<span class="keyword">new</span> PcFactory();</span><br><span class="line">        afPc.getCPU().show();</span><br><span class="line">        afPc.getRAM().show();</span><br><span class="line"></span><br><span class="line">        AbstractFactory afMac = <span class="keyword">new</span> MacFactory();</span><br><span class="line">        afMac.getCPU().show();</span><br><span class="line">        afMac.getRAM().show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcCPU</span> <span class="keyword">implements</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"PC的CPU"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacCpu</span> <span class="keyword">implements</span> <span class="title">CPU</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Mac的CPU"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">RAM</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcRAM</span> <span class="keyword">implements</span> <span class="title">RAM</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"PC的RAM"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacRAM</span> <span class="keyword">implements</span> <span class="title">RAM</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Mac的RAM"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">    <span class="function">RAM <span class="title">getRAM</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">CPU <span class="title">getCPU</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcFactory</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RAM <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PcRAM();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CPU <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PcCPU();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacFactory</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RAM <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MacRAM();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CPU <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MacCpu();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行截图：</p>
+<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403213746661.png" class title="在这里插入图片描述">
+
+<ul>
+<li>c++实现</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPU</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcCPU</span> :</span><span class="keyword">public</span> CPU &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"PC的CPU"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacCPU</span> :</span><span class="keyword">public</span> CPU &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Mac的CPU"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RAM</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcRAM</span> :</span><span class="keyword">public</span> RAM &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"PC的RAM"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacRAM</span> :</span><span class="keyword">public</span> RAM &#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Mac的RAM"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> RAM* <span class="title">getRAM</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> CPU* <span class="title">getCPU</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PcFactory</span> :</span><span class="keyword">public</span> AbstractFactory &#123;</span><br><span class="line">	<span class="function">RAM* <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> PcRAM();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">CPU* <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> PcCPU();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacFactory</span> :</span><span class="keyword">public</span> AbstractFactory &#123;</span><br><span class="line">	<span class="function">RAM* <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> MacRAM();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">CPU* <span class="title">getCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> MacCPU();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	AbstractFactory* afPc = <span class="keyword">new</span> PcFactory();</span><br><span class="line">	afPc-&gt;getCPU()-&gt;show();</span><br><span class="line">	afPc-&gt;getRAM()-&gt;show();</span><br><span class="line"></span><br><span class="line">	AbstractFactory* afMac = <span class="keyword">new</span> MacFactory();</span><br><span class="line">	afMac-&gt;getCPU()-&gt;show();</span><br><span class="line">	afMac-&gt;getRAM()-&gt;show();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行截图：</p>
+<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403213654447.png" class title="在这里插入图片描述">]]></content>
+      <tags>
+        <tag>设计模式</tag>
       </tags>
   </entry>
 </search>
