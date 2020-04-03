@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="# 栈内存 定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。">
+  <meta name="description" content="栈内存定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中的栈内存和堆内存">
 <meta property="og:url" content="https://github/lzq52066/lzq52066.github.io/2020/04/03/Java%E4%B8%AD%E7%9A%84%E6%A0%88%E5%86%85%E5%AD%98%E5%92%8C%E5%A0%86%E5%86%85%E5%AD%98/index.html">
 <meta property="og:site_name" content="程序员小V">
-<meta property="og:description" content="# 栈内存 定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。">
+<meta property="og:description" content="栈内存定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-03T13:47:33.000Z">
-<meta property="article:modified_time" content="2020-04-03T13:48:50.899Z">
+<meta property="article:modified_time" content="2020-04-03T13:51:58.733Z">
 <meta property="article:author" content="XiaoV">
 <meta property="article:tag" content="技术笔记">
 <meta name="twitter:card" content="summary">
@@ -271,36 +271,11 @@
   
   <!-- 目录内容 -->
 
-    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
-          <span class="btn-bg"></span>
-          <span class="btn-text">文章导航</span>
-          </p>
-    <div id="toc-article" class="toc-article">
-        <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
-        <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#堆内存"><span class="toc-number">1.</span> <span class="toc-text">堆内存</span></a></li></ol>
-         </div>
-   <script type="text/javascript">
-    function showToc(){
-        var toc_article = document.getElementById("toc-article");
-        var show_toc_btn = document.getElementById("show-toc-btn");
-        toc_article.setAttribute("style","display:block");
-        show_toc_btn.setAttribute("style","display:none");
-        };
-    function showBtn(){
-        var toc_article = document.getElementById("toc-article");
-        var show_toc_btn = document.getElementById("show-toc-btn");
-        toc_article.setAttribute("style","display:none");
-        show_toc_btn.setAttribute("style","display:block");
-        };
-   </script>
-      
 <!-- 目录内容结束 -->
 
   <div class="article-entry" itemprop="articleBody">
     
-    <p>﻿# 栈内存</p>
-<p>定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。</p>
+    <h1 id="栈内存"><a href="#栈内存" class="headerlink" title="栈内存"></a>栈内存</h1><p>定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。</p>
 <a id="more"></a>
 
 <h1 id="堆内存"><a href="#堆内存" class="headerlink" title="堆内存"></a>堆内存</h1><p>用来存放数组和new运算符创建的对象。在堆中分配的内存，java虚拟机有自己的垃圾回收机制，由java虚拟机的自动垃圾回收器来管理。在堆中创建了一个数组或对象后，同时还在栈内存中定义一个特殊的变量。让栈内存中的这个变量的取值等于数组或者对象在堆内存中的首地址，栈中的这个变量就成了数组或对象的引用变量，引用变量实际上保存的是数组或对象在堆内存中的地址，以后就可以在程序中使用栈的引用变量来访问堆中的数组或对象。</p>
@@ -596,11 +571,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>
