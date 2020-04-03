@@ -6,25 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://github/lzq52066/lzq52066.github.io">
-  <title>工厂方法 | 程序员小V</title>
+  <title>设计模式——工厂方法 | 程序员小V</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂方法">
-<meta property="og:url" content="https://github/lzq52066/lzq52066.github.io/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="设计模式——工厂方法">
+<meta property="og:url" content="https://github/lzq52066/lzq52066.github.io/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="程序员小V">
 <meta property="og:description" content="1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/image-20200325223636704.png">
-<meta property="og:image" content="https://github/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/image-20200325225045453-1585812009107.png">
 <meta property="article:published_time" content="2020-04-02T07:21:22.000Z">
-<meta property="article:modified_time" content="2020-04-02T08:13:05.237Z">
+<meta property="article:modified_time" content="2020-04-03T13:42:46.105Z">
 <meta property="article:author" content="XiaoV">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/image-20200325223636704.png">
   
     <link rel="alternative" href="/atom.xml" title="程序员小V" type="application/atom+xml">
   
@@ -220,14 +217,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-工厂方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-设计模式——工厂方法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      工厂方法
+      设计模式——工厂方法
     </h1>
   
 
@@ -239,7 +236,7 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="archive-article-date">
+<a href="/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="archive-article-date">
         <time datetime="2020-04-02T07:21:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
 </a>
 
@@ -284,7 +281,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//图片基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageReader</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ImageReader() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	~ImageReader() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">format</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Gif图片</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Gif</span> :</span><span class="keyword">public</span> ImageReader &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">format</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Gif图片"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jpg图片</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jpg</span> :</span><span class="keyword">public</span> ImageReader &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">format</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Jpg图片"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//图片读取器基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageReaderFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ImageReaderFactory() &#123;&#125;</span><br><span class="line">	~ImageReaderFactory() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> ImageReader* <span class="title">creatReader</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">ImageReader* <span class="title">getObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		ImageReader* imageReader = creatReader();</span><br><span class="line">		<span class="keyword">return</span> imageReader;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Gif读取器的生产工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConGifReadeer</span> :</span><span class="keyword">public</span> ImageReaderFactory &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function">ImageReader* <span class="title">creatReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; "创建了GifReadeer" &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Gif();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jpg读取器的生产工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConJpgReadeer</span> :</span><span class="keyword">public</span> ImageReaderFactory &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function">ImageReader* <span class="title">creatReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; "创建了JpgReadeer" &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Jpg();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ImageReaderFactory* imageReaderFactory = <span class="keyword">new</span> ConJpgReadeer();</span><br><span class="line">	ImageReader* imageReader = imageReaderFactory-&gt;creatReader();</span><br><span class="line">	imageReader-&gt;format();</span><br><span class="line">	<span class="keyword">delete</span> imageReaderFactory;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<img src="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/image-20200325223636704.png" class title="image-20200325223636704">
+
 
 
 
@@ -296,7 +293,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaov.factorymethod.creatcar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CarFactory carFactory= <span class="keyword">new</span> ConBenzFactory();</span><br><span class="line">        Car car = carFactory.creatCar();</span><br><span class="line">        car.getName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//车的基类</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//工厂基类</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="function">Car <span class="title">creatCar</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Car <span class="title">getCar</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Car car = creatCar();</span><br><span class="line">        <span class="keyword">return</span> car;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//宝马车</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW</span> <span class="keyword">implements</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"宝马"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//奔驰车</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Benz</span> <span class="keyword">implements</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"奔驰"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//宝马车工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConBMWFactory</span> <span class="keyword">implements</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Car <span class="title">creatCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BMW();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//奔驰车工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConBenzFactory</span> <span class="keyword">implements</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Car <span class="title">creatCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Benz();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<img src="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/image-20200325225045453-1585812009107.png" class title="image-20200325225045453">
+
 
 
     
@@ -312,7 +309,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="/2020/04/02/工厂方法/" target="_blank" title="工厂方法">https://github/lzq52066/lzq52066.github.io/2020/04/02/工厂方法/</a>
+          <a href="/2020/04/02/设计模式——工厂方法/" target="_blank" title="设计模式——工厂方法">https://github/lzq52066/lzq52066.github.io/2020/04/02/设计模式——工厂方法/</a>
         </li>
         
         <li>
@@ -390,7 +387,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://github/lzq52066/lzq52066.github.io/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://github/lzq52066/lzq52066.github.io/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -407,6 +404,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          设计模式——抽象工厂
+        
+      </div>
+    </a>
   
   
     <a href="/2020/04/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
@@ -437,7 +443,7 @@
 
 
 
-<div id="SOHUCS" sid="工厂方法" ></div> 
+<div id="SOHUCS" sid="设计模式——工厂方法" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
@@ -586,15 +592,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
               </li>
             
             <div class="clearfix"></div>

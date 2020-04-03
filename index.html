@@ -219,7 +219,7 @@
             
 
   
-    <article id="post-工厂方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java中的栈内存和堆内存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -227,7 +227,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" target="_blank">工厂方法</a>
+	  <a class="article-title" href="/2020/04/03/Java%E4%B8%AD%E7%9A%84%E6%A0%88%E5%86%85%E5%AD%98%E5%92%8C%E5%A0%86%E5%86%85%E5%AD%98/" target="_blank">Java中的栈内存和堆内存</a>
   
     </h1>
   
@@ -235,8 +235,8 @@
 
   
   
-<a href="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="archive-article-date">
-        <time datetime="2020-04-02T07:21:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
+<a href="/2020/04/03/Java%E4%B8%AD%E7%9A%84%E6%A0%88%E5%86%85%E5%AD%98%E5%92%8C%E5%A0%86%E5%86%85%E5%AD%98/" class="archive-article-date">
+        <time datetime="2020-04-03T13:47:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-03</time>
 </a>
 
   
@@ -253,9 +253,108 @@
 
   <div class="article-entry" itemprop="articleBody">
     
-    <p>1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读取器的工厂方法，其子类GifReaderFactory和JpgReaderFactory用于创建具体的图片读取器对象。使用工厂方法模式实现该程序的设计。</p>
+    <p>﻿# 栈内存</p>
+<p>定义的一些基本类型的变量和对象的引用变量都在栈内存中分配，当在一段代码中定义一个变量时，java就会在栈内存中为这个变量分配它的内存空间，当超出变量的作用域后，java会自动释放掉为该变量所分配的内存空间。</p>
     
-    <a class="article-more-a" href="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/#more">more >></a>
+    <a class="article-more-a" href="/2020/04/03/Java%E4%B8%AD%E7%9A%84%E6%A0%88%E5%86%85%E5%AD%98%E5%92%8C%E5%A0%86%E5%86%85%E5%AD%98/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/04/03/Java%E4%B8%AD%E7%9A%84%E6%A0%88%E5%86%85%E5%AD%98%E5%92%8C%E5%A0%86%E5%86%85%E5%AD%98/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+  
+
+
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-设计模式——抽象工厂" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" target="_blank">设计模式——抽象工厂</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" class="archive-article-date">
+        <time datetime="2020-04-03T13:46:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-03</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  
+  <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>﻿计算机包括内存（RAM）、CPU等硬件设备，根据图示的“产品等级结构-产品族”示意图，使用抽象工厂模式实现计算机设备创建过程并绘制相应的类图，并用面向对象语言编程模拟。</p>
+<p>类图：</p>
+<img src="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/20200403210605726.png" class title="在这里插入图片描述">
+    
+    <a class="article-more-a" href="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/#more">more >></a>
     
     
 
@@ -282,7 +381,103 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/02/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/">展开全文 >></a>
+      <a class="article-more-a" href="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+  
+
+
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-设计模式——工厂方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" target="_blank">设计模式——工厂方法</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="archive-article-date">
+        <time datetime="2020-04-02T07:21:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  
+  <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读取器的工厂方法，其子类GifReaderFactory和JpgReaderFactory用于创建具体的图片读取器对象。使用工厂方法模式实现该程序的设计。</p>
+    
+    <a class="article-more-a" href="/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/">展开全文 >></a>
     </p>
     
 
@@ -766,15 +961,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术笔记</a>
               </li>
             
             <div class="clearfix"></div>
