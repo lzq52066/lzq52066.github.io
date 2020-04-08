@@ -6,22 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://github/lzq52066/lzq52066.github.io">
-  <title>设计模式——工厂方法 | 程序员小V</title>
+  <title>idea集成maven新手保姆级教程 | 程序员小V</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读">
+  <meta name="description" content="下载maven下载地址：https:&#x2F;&#x2F;maven.apache.org&#x2F;download.cgi  新建一个文件夹apache-maven-repository，这个就是maven本地仓库，最好和maven同一级。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式——工厂方法">
-<meta property="og:url" content="https://github/lzq52066/lzq52066.github.io/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="idea集成maven新手保姆级教程">
+<meta property="og:url" content="https://github/lzq52066/lzq52066.github.io/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="程序员小V">
-<meta property="og:description" content="1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读">
+<meta property="og:description" content="下载maven下载地址：https:&#x2F;&#x2F;maven.apache.org&#x2F;download.cgi  新建一个文件夹apache-maven-repository，这个就是maven本地仓库，最好和maven同一级。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-02T07:21:22.000Z">
-<meta property="article:modified_time" content="2020-04-03T13:42:46.105Z">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200909835.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/2020031019472442.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310194619236.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195046258.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195315956.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195826502.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195949480.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200218756.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200402252.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200605164.png">
+<meta property="og:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200714542.png">
+<meta property="article:published_time" content="2020-04-08T09:43:23.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:46:25.273Z">
 <meta property="article:author" content="XiaoV">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="技术笔记">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200909835.png">
   
     <link rel="alternative" href="/atom.xml" title="程序员小V" type="application/atom+xml">
   
@@ -217,14 +230,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-设计模式——工厂方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-idea集成maven新手保姆级教程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      设计模式——工厂方法
+      idea集成maven新手保姆级教程
     </h1>
   
 
@@ -236,8 +249,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" class="archive-article-date">
-        <time datetime="2020-04-02T07:21:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-02</time>
+<a href="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/" class="archive-article-date">
+        <time datetime="2020-04-08T09:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
 </a>
 
   
@@ -250,7 +263,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">548字</span>
+      <span class="post-count">237字</span>
     </span>
   </span>
 
@@ -259,7 +272,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
+      <span class="post-count">1分</span>
     </span>
   </span>
 </div>
@@ -271,31 +284,68 @@
   
   <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+    <div id="toc-article" class="toc-article">
+        <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+        <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#下载maven"><span class="toc-number">1.</span> <span class="toc-text">下载maven</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#将下载好的maven打开"><span class="toc-number">2.</span> <span class="toc-text">将下载好的maven打开</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#进入confg目录"><span class="toc-number">2.1.</span> <span class="toc-text">进入confg目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打开settings-xml文件，添加仓库"><span class="toc-number">2.2.</span> <span class="toc-text">打开settings.xml文件，添加仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加阿里云镜像"><span class="toc-number">3.</span> <span class="toc-text">添加阿里云镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#打开idea"><span class="toc-number">4.</span> <span class="toc-text">打开idea</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索maven，选择maven"><span class="toc-number">4.1.</span> <span class="toc-text">搜索maven，选择maven</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成maven目录"><span class="toc-number">4.2.</span> <span class="toc-text">集成maven目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更改settings文件"><span class="toc-number">4.3.</span> <span class="toc-text">更改settings文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成maven本地库"><span class="toc-number">4.4.</span> <span class="toc-text">集成maven本地库</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+    function showToc(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:block");
+        show_toc_btn.setAttribute("style","display:none");
+        };
+    function showBtn(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:none");
+        show_toc_btn.setAttribute("style","display:block");
+        };
+   </script>
+      
 <!-- 目录内容结束 -->
 
   <div class="article-entry" itemprop="articleBody">
     
-    <p>1.现需要设计一个程序来读取多种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器（ImageReader）,如GIF图片读取器（GifReadeer）用来读取GIF格式的图片、JPG图片读取器（JpgReadeer）用来读取JPG格式的图片。图片读取器对象通过图片读取器工厂（ImageReaderFactory）来创建，ImageReaderFactory是一个抽象类，用于定义创建图片读取器的工厂方法，其子类GifReaderFactory和JpgReaderFactory用于创建具体的图片读取器对象。使用工厂方法模式实现该程序的设计。</p>
+    <h1 id="下载maven"><a href="#下载maven" class="headerlink" title="下载maven"></a>下载maven</h1><p>下载地址：<a href="https://maven.apache.org/download.cgi" target="_blank" rel="noopener">https://maven.apache.org/download.cgi</a></p>
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200909835.png" class title="在这里插入图片描述">
+<p>新建一个文件夹<strong>apache-maven-repository</strong>，这个就是maven本地仓库，最好和maven同一级。</p>
 <a id="more"></a>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//图片基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageReader</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ImageReader() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	~ImageReader() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">format</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Gif图片</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Gif</span> :</span><span class="keyword">public</span> ImageReader &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">format</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Gif图片"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jpg图片</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jpg</span> :</span><span class="keyword">public</span> ImageReader &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">format</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Jpg图片"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//图片读取器基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageReaderFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ImageReaderFactory() &#123;&#125;</span><br><span class="line">	~ImageReaderFactory() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> ImageReader* <span class="title">creatReader</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">ImageReader* <span class="title">getObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		ImageReader* imageReader = creatReader();</span><br><span class="line">		<span class="keyword">return</span> imageReader;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Gif读取器的生产工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConGifReadeer</span> :</span><span class="keyword">public</span> ImageReaderFactory &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function">ImageReader* <span class="title">creatReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; "创建了GifReadeer" &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Gif();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jpg读取器的生产工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConJpgReadeer</span> :</span><span class="keyword">public</span> ImageReaderFactory &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//@override</span></span><br><span class="line">	<span class="function">ImageReader* <span class="title">creatReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; "创建了JpgReadeer" &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Jpg();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ImageReaderFactory* imageReaderFactory = <span class="keyword">new</span> ConJpgReadeer();</span><br><span class="line">	ImageReader* imageReader = imageReaderFactory-&gt;creatReader();</span><br><span class="line">	imageReader-&gt;format();</span><br><span class="line">	<span class="keyword">delete</span> imageReaderFactory;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="将下载好的maven打开"><a href="#将下载好的maven打开" class="headerlink" title="将下载好的maven打开"></a>将下载好的maven打开</h1><img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/2020031019472442.png" class title="在这里插入图片描述">
 
-<p>运行结果：</p>
+<h2 id="进入confg目录"><a href="#进入confg目录" class="headerlink" title="进入confg目录"></a>进入confg目录</h2><img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310194619236.png" class title="在这里插入图片描述">
 
+<h2 id="打开settings-xml文件，添加仓库"><a href="#打开settings-xml文件，添加仓库" class="headerlink" title="打开settings.xml文件，添加仓库"></a>打开settings.xml文件，添加仓库</h2><p>在settings标签下，添加localRepository，就是你的本地库地址（绝对路径）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>C:\Program Files\apache-maven-repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195046258.png" class title="在这里插入图片描述">
 
+<h1 id="添加阿里云镜像"><a href="#添加阿里云镜像" class="headerlink" title="添加阿里云镜像"></a>添加阿里云镜像</h1><p>在mirrors标签里面添加mirror标签：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/repositories/central/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195315956.png" class title="在这里插入图片描述">
 
+<h1 id="打开idea"><a href="#打开idea" class="headerlink" title="打开idea"></a>打开idea</h1><p>选择configure -》 settings</p>
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195826502.png" class title="在这里插入图片描述">
 
+<h2 id="搜索maven，选择maven"><a href="#搜索maven，选择maven" class="headerlink" title="搜索maven，选择maven"></a>搜索maven，选择maven</h2><img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310195949480.png" class title="在这里插入图片描述">
 
+<h2 id="集成maven目录"><a href="#集成maven目录" class="headerlink" title="集成maven目录"></a>集成maven目录</h2><p>选中maven的根目录即可。</p>
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200218756.png" class title="在这里插入图片描述">
 
-<p>2.宝马（BMW）工厂制造宝马汽车，奔驰（Benz）工厂制造奔驰汽车，使用工厂方法模式模拟该场景，要求绘制相应的类图并用面向对象语言实现。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaov.factorymethod.creatcar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CarFactory carFactory= <span class="keyword">new</span> ConBenzFactory();</span><br><span class="line">        Car car = carFactory.creatCar();</span><br><span class="line">        car.getName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//车的基类</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//工厂基类</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="function">Car <span class="title">creatCar</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Car <span class="title">getCar</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Car car = creatCar();</span><br><span class="line">        <span class="keyword">return</span> car;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//宝马车</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW</span> <span class="keyword">implements</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"宝马"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//奔驰车</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Benz</span> <span class="keyword">implements</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"奔驰"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//宝马车工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConBMWFactory</span> <span class="keyword">implements</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Car <span class="title">creatCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BMW();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//奔驰车工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConBenzFactory</span> <span class="keyword">implements</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Car <span class="title">creatCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Benz();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更改settings文件"><a href="#更改settings文件" class="headerlink" title="更改settings文件"></a>更改settings文件</h2><p>勾选Override，然后选中我们修改的maven里面的settings.xml文件。</p>
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200402252.png" class title="在这里插入图片描述">
 
-<p>运行结果：</p>
-
-
-
+<h2 id="集成maven本地库"><a href="#集成maven本地库" class="headerlink" title="集成maven本地库"></a>集成maven本地库</h2><p>勾选Override，然后选中我们新建的文件夹apache-maven-repository。</p>
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200605164.png" class title="在这里插入图片描述">
+<p>点击ok或者apply，完成集成maven。</p>
+<img src="/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/20200310200714542.png" class title="在这里插入图片描述">
     
 
     
@@ -309,7 +359,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="/2020/04/02/设计模式——工厂方法/" target="_blank" title="设计模式——工厂方法">https://github/lzq52066/lzq52066.github.io/2020/04/02/设计模式——工厂方法/</a>
+          <a href="/2020/04/08/idea集成maven新手保姆级教程/" target="_blank" title="idea集成maven新手保姆级教程">https://github/lzq52066/lzq52066.github.io/2020/04/08/idea集成maven新手保姆级教程/</a>
         </li>
         
         <li>
@@ -331,7 +381,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -387,7 +441,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://github/lzq52066/lzq52066.github.io/2020/04/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://github/lzq52066/lzq52066.github.io/2020/04/08/idea%E9%9B%86%E6%88%90maven%E6%96%B0%E6%89%8B%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -405,18 +459,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          设计模式——抽象工厂
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/04/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">多线程笔记</div>
+    <a href="/2020/04/08/Java%E5%85%A5%E9%97%A8%E4%B9%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java入门之配置环境变量</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -443,7 +488,7 @@
 
 
 
-<div id="SOHUCS" sid="设计模式——工厂方法" ></div> 
+<div id="SOHUCS" sid="idea集成maven新手保姆级教程" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
