@@ -120,7 +120,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractTree<T> {
 	 * @param setParentNull 是否设置中序后继节点位置为空
 	 * @return 返回中序后继节点
 	 */
-	public TreeNode<T> getInOrderSuccessorTreeNode(TreeNode<T> node, boolean setParentNull) {
+	private TreeNode<T> getInOrderSuccessorTreeNode(TreeNode<T> node, boolean setParentNull) {
 		if (node == null || node.getRight() == null) {
 			return null;
 		}
