@@ -56,24 +56,46 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
 	@Override
 	public boolean add(TreeNode<T> treeNode) {
 		super.add(treeNode);
+		return rotate();
+	}
 
-		//添加后, 右子节点 - 左子节点 > 1 左旋
-		if (rHeight(root) - lHeight(root) > 1) {
-			//如果 右子树的 左子树高度 大于 右子树高度 ,先对右子树进行右旋
-			if (root.getRight() != null &&
-					lHeight(root.getRight()) > rHeight(root.getRight())) {
-				rightRotate(root.getRight());
-			}
-			leftRotate(root);
+	/**
+	 * 平衡树添加节点
+	 * 双旋转目的 : 先解决一遍树的高度
+	 *
+	 * @param value 需要删除的值
+	 * @return boolean
+	 */
+	@Override
+	public boolean delete(T value) {
+		boolean delete = super.delete(value);
+		if (delete) {
+			return rotate();
 		}
-		//添加后, 左子节点 - 右子节点 > 1 右旋
-		else if (lHeight(root) - rHeight(root) > 1) {
-			//如果 左子树的 右子树高度 大于 左子树高度 ,先对左子树进行左旋
-			if (root.getLeft() != null &&
-					rHeight(root.getLeft()) > lHeight(root.getLeft())) {
-				leftRotate(root.getLeft());
+		return false;
+	}
+
+	/**
+	 * 旋转
+	 */
+	private boolean rotate() {
+		//右子节点 - 左子节点 > 1 左旋
+		if (rHeight(this.root) - lHeight(this.root) > 1) {
+			//如果 右子树的 左子树高度 大于 右子树高度 ,先对右子树进行右旋
+			if (this.root.getRight() != null &&
+					lHeight(this.root.getRight()) > rHeight(this.root.getRight())) {
+				rightRotate(this.root.getRight());
 			}
-			rightRotate(root);
+			leftRotate(this.root);
+		}
+		//左子节点 - 右子节点 > 1 右旋
+		else if (lHeight(this.root) - rHeight(this.root) > 1) {
+			//如果 左子树的 右子树高度 大于 左子树高度 ,先对左子树进行左旋
+			if (this.root.getLeft() != null &&
+					rHeight(this.root.getLeft()) > lHeight(this.root.getLeft())) {
+				leftRotate(this.root.getLeft());
+			}
+			rightRotate(this.root);
 		}
 		return true;
 	}
@@ -120,8 +142,4 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
 		node.setRight(newNode);
 	}
 
-	@Override
-	public boolean delete(T value) {
-		return false;
-	}
 }
