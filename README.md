@@ -641,7 +641,7 @@ private void delete(TreeNode<T> parent, TreeNode<T> current) {
  * @return int
  */
 public int height(TreeNode<T> node) {
-	return Math.max(node == null ? 0 : height(node.getLeft())
+	return Math.max(node == null ? 0 : height(node.getLeft()),
 			node == null ? 0 : height(node.getRight())) + 1;
 }
 /**
