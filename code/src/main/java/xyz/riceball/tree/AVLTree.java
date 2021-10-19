@@ -16,8 +16,8 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
 	 * @return int
 	 */
 	public int height(TreeNode<T> node) {
-		return Math.max(node == null ? 0 : height(node.getLeft())
-				, node == null ? 0 : height(node.getRight())) + 1;
+		return Math.max(node == null ? 0 : height(node.getLeft()),
+				node == null ? 0 : height(node.getRight())) + 1;
 	}
 
 	/**
@@ -27,10 +27,7 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
 	 * @return int
 	 */
 	public int lHeight(TreeNode<T> node) {
-		if (node == null) {
-			return 0;
-		}
-		return height(node.getLeft());
+		return node == null ? 0 : height(node.getLeft());
 	}
 
 	/**
@@ -40,10 +37,7 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
 	 * @return int
 	 */
 	public int rHeight(TreeNode<T> node) {
-		if (node == null) {
-			return 0;
-		}
-		return height(node.getRight());
+		return node == null ? 0 : height(node.getRight());
 	}
 
 	/**

@@ -641,10 +641,9 @@ private void delete(TreeNode<T> parent, TreeNode<T> current) {
  * @return int
  */
 public int height(TreeNode<T> node) {
-    return Math.max(node == null ? 0 : height(node.getLeft())
-                    , node == null ? 0 : height(node.getRight())) + 1;
+	return Math.max(node == null ? 0 : height(node.getLeft())
+			node == null ? 0 : height(node.getRight())) + 1;
 }
-
 /**
  * 左子节树的高度
  *
@@ -652,12 +651,8 @@ public int height(TreeNode<T> node) {
  * @return int
  */
 public int lHeight(TreeNode<T> node) {
-    if (node == null) {
-        return 0;
-    }
-    return height(node.getLeft());
+	return node == null ? 0 : height(node.getLeft());
 }
-
 /**
  * 右子节树的高度
  *
@@ -665,10 +660,7 @@ public int lHeight(TreeNode<T> node) {
  * @return int
  */
 public int rHeight(TreeNode<T> node) {
-    if (node == null) {
-        return 0;
-    }
-    return height(node.getRight());
+	return node == null ? 0 : height(node.getRight());
 }
 ```
 
