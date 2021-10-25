@@ -37,18 +37,17 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractTree<T> {
 					current = current.getLeft();
 				} else {
 					current.setLeft(treeNode);
-					break;
+					return true;
 				}
 			} else {
 				if (current.getRight() != null) {
 					current = current.getRight();
 				} else {
 					current.setRight(treeNode);
-					break;
+					return true;
 				}
 			}
 		}
-		return true;
 	}
 
 	/**
@@ -97,7 +96,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractTree<T> {
 
 		if (parent != null) {
 			//判断是左子节点还是右子节点
-			if (parent.getRight() != null && parent.getRight().getValue().equals(current.getValue())) {
+			if (parent.getRight() != null && current.equals(parent.getRight())) {
 				parent.setRight(successorNode);
 			} else {
 				parent.setLeft(successorNode);

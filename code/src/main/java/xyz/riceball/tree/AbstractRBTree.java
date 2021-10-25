@@ -1,27 +1,24 @@
 package xyz.riceball.tree;
 
-import lombok.Data;
 import xyz.riceball.list.ArrayList;
 import xyz.riceball.list.List;
 
 /**
- * 树的默认实现
+ * 红黑树抽象
  *
  * @author xiaovcloud
- * @since 2021/10/14 19:52
+ * @since 2021/10/20 13:00
  */
-@Data
-public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> {
-
-	protected TreeNode<T> root;
+public abstract class AbstractRBTree<T extends Comparable<T>> implements IRBTree<T> {
+	protected RBTreeNode<T> root;
 
 	/**
 	 * 前序遍历
 	 *
-	 * @return List<TreeNode < T>>
+	 * @return List<RBTreeNode < T>>
 	 */
-	public List<TreeNode<T>> preOrder() {
-		List<TreeNode<T>> treeNodes = new ArrayList<>();
+	public List<RBTreeNode<T>> preOrder() {
+		List<RBTreeNode<T>> treeNodes = new ArrayList<>();
 		preOrder(treeNodes, root);
 		return treeNodes;
 	}
@@ -32,7 +29,7 @@ public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> 
 	 * @param treeNodes 记录的集合
 	 * @param root      根节电
 	 */
-	private void preOrder(List<TreeNode<T>> treeNodes, TreeNode<T> root) {
+	private void preOrder(List<RBTreeNode<T>> treeNodes, RBTreeNode<T> root) {
 		if (root == null) {
 			return;
 		}
@@ -44,10 +41,10 @@ public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> 
 	/**
 	 * 中序遍历
 	 *
-	 * @return List<TreeNode < T>>
+	 * @return List<RBTreeNode < T>>
 	 */
-	public List<TreeNode<T>> inOrder() {
-		List<TreeNode<T>> treeNodes = new ArrayList<>();
+	public List<RBTreeNode<T>> inOrder() {
+		List<RBTreeNode<T>> treeNodes = new ArrayList<>();
 		inOrder(treeNodes, root);
 		return treeNodes;
 	}
@@ -58,7 +55,7 @@ public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> 
 	 * @param treeNodes 记录的集合
 	 * @param root      根节电
 	 */
-	private void inOrder(List<TreeNode<T>> treeNodes, TreeNode<T> root) {
+	private void inOrder(List<RBTreeNode<T>> treeNodes, RBTreeNode<T> root) {
 		if (root == null) {
 			return;
 		}
@@ -71,11 +68,11 @@ public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> 
 	/**
 	 * 后序遍历
 	 *
-	 * @return List<TreeNode < T>>
+	 * @return List<RBTreeNode < T>>
 	 */
 
-	public List<TreeNode<T>> postOrder() {
-		List<TreeNode<T>> treeNodes = new ArrayList<>();
+	public List<RBTreeNode<T>> postOrder() {
+		List<RBTreeNode<T>> treeNodes = new ArrayList<>();
 		postOrder(treeNodes, root);
 		return treeNodes;
 	}
@@ -86,7 +83,7 @@ public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> 
 	 * @param treeNodes 记录的集合
 	 * @param root      根节电
 	 */
-	private void postOrder(List<TreeNode<T>> treeNodes, TreeNode<T> root) {
+	private void postOrder(List<RBTreeNode<T>> treeNodes, RBTreeNode<T> root) {
 		if (root == null) {
 			return;
 		}
@@ -94,5 +91,6 @@ public abstract class AbstractTree<T extends Comparable<T>> implements ITree<T> 
 		postOrder(treeNodes, root.getRight());
 		treeNodes.add(root);
 	}
+
 
 }

@@ -6,7 +6,7 @@ package xyz.riceball.tree;
  * @author xiaovcloud
  * @since 2021/10/14 19:52
  */
-public interface Tree<T extends Comparable<T>> {
+public interface ITree<T extends Comparable<T>> {
 
 	/**
 	 * 添加一个节点
