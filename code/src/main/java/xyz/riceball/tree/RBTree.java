@@ -106,7 +106,6 @@ public class RBTree<T extends Comparable<T>> extends AbstractRBTree<T> {
 				parent.setColor(RBTreeNode.BLACK);
 				grandParent.setColor(RBTreeNode.RED);
 				rightRotate(grandParent);
-
 			} else if (parent.equals(grandParent.getLeft()) && treeNode.equals(parent.getRight())) {
 				//如果父节点是祖父节点的左孩子,且插入节点是父节点的右孩子 LR
 				//以父节点左旋得到LL,再指定父节点为当前节点,进行下一轮
@@ -119,7 +118,6 @@ public class RBTree<T extends Comparable<T>> extends AbstractRBTree<T> {
 				parent.setColor(RBTreeNode.BLACK);
 				grandParent.setColor(RBTreeNode.RED);
 				leftRotate(grandParent);
-
 			} else if (parent.equals(grandParent.getRight()) && treeNode.equals(parent.getLeft())) {
 				//如果父节点是祖父节点的右孩子,且插入节点是父节点的右孩子 RL
 				//以父节点右旋得到RR,再指定父节点为当前节点,进行下一轮
@@ -134,7 +132,14 @@ public class RBTree<T extends Comparable<T>> extends AbstractRBTree<T> {
 
 	@Override
 	public boolean delete(T value) {
-		return false;
+		RBTreeNode<T> current = this.root;
+		for (; ; ) {
+			if (current.getValue().equals(value)) {
+
+				break;
+			}
+		}
+		return true;
 	}
 
 	/**

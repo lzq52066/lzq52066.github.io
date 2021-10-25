@@ -739,7 +739,7 @@ private void rightRotate(TreeNode<T> node) {
 
 平衡树新增和删除节点
 
-```Java
+```java
 /**
  * 平衡树添加节点
  * 双旋转目的 : 先解决一遍树的高度
@@ -811,6 +811,94 @@ public boolean delete(T value) {
   3. 叔叔节点是黑色，且当前节点是左孩子
 
      交换祖父节点和父亲节点的颜色，再以祖父节点为支点进行左旋转，此时当前节点还是新加入的节点
+
+```java
+/**
+ * 红黑树节点
+ *
+ * @author xiaovcloud
+ * @since 2021/10/20 8:24
+ */
+@Data
+public class RBTreeNode<T extends Comparable<T>> {
+
+   /**
+    * 左子树
+    */
+   private RBTreeNode<T> left;
+   /**
+    * 右子树
+    */
+   private RBTreeNode<T> right;
+   /**
+    * 颜色,默认为红色
+    */
+   private boolean color;
+   /**
+    * 值
+    */
+   private T value;
+   /**
+    * 父节点
+    */
+   private RBTreeNode<T> parent;
+
+   public static final Boolean RED = false;
+   public static final Boolean BLACK = true;
+
+   public RBTreeNode(T value) {
+      this.value = value;
+      this.color = RED;
+   }
+
+   public RBTreeNode(boolean color, T value) {
+      this.color = color;
+      this.value = value;
+   }
+
+   @Override
+   public String toString() {
+      return "RBTreeNode{" +
+            "value=" + value +
+            ", color=" + (color ? "black" : "red") +
+            ", left=" + (left == null ? "null" : left.value) +
+            ", right=" + (right == null ? "null" : right.value) +
+            '}';
+   }
+}
+```
+
+定义红黑树中获取父节点和祖父节点的方法：
+
+```java
+/**
+ * 获取父节点
+ *
+ * @param treeNode 当前节点
+ * @return 父节点
+ */
+private RBTreeNode<T> getParent(RBTreeNode<T> treeNode) {
+   if (treeNode == null) {
+      return null;
+   }
+   return treeNode.getParent();
+}
+
+/**
+ * 获取祖父节点
+ *
+ * @param treeNode 当前节点
+ * @return 祖父节点
+ */
+private RBTreeNode<T> getGrandParent(RBTreeNode<T> treeNode) {
+   if (treeNode == null || treeNode.getParent() == null) {
+      return null;
+   }
+   return treeNode.getParent().getParent();
+}
+```
+
+
 
 ### B树
 
