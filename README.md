@@ -210,73 +210,27 @@ truncate table t_user #表被截断, 不可撤销, 永久丢失, (删除大文�
 > 外键约束：（foreign key）简称FK
 > 检查约束：（check)
 
-## 存储引擎
-
-每一个存储引擎都对应一种不同的存储方式。
-
-mysql默认使用的存储引擎是InnoDB方式。
-
-```sql
-# 查看当前mysql支持的存储引擎
-show engines (\G)
-```
-
-常见的存储引擎:
-
-- MySIAM : 这种存储引擎不支持事务
-
-- InnoDB : 支持事务，行级锁，外键，级联删除和级联更新等。这种引擎数据最安全。
-- MEMORY : 查询数据最快, 不支持事务，数据容易丢失，因为表数据和索引都是存储在内存当中
-
-## 事务
-
-一个事务是一个完整的业务逻辑单元，不可再分。必须同时成功，或者同时失败
-
-开启事务	begin
-提交事务（会写到文件）commit
-回滚事务（不会写到文件）rollback
-
-事务控制语句：
-
-- BEGIN : 显式地开启一个事务
-- COMMIT : 提交事务，对数据库进行的所有修改成为永久性的
-- ROLLBACK : 回滚会结束用户的事务，并撤销正在进行的所有未提交的修改，不会修改数据库
-- SAVEPOINT identifier: 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT
-- RELEASE SAVEPOINT identifier  : 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常
-- ROLLBACK TO identifier : 把事务回滚到标记点
-- SET TRANSACTION : 用来设置事务的隔离级别
-
-事务的特征:  事务包括四大特性：ACID
-
-- 原子性 (Atomicity): 事务是最小的工作单元，不可再分
-
-- 一致性 (Consistency): 事务必须保证多条DML语句同时成功或者同时失败, 在事务开始之前和事务结束以后，数据库的完整性没有被破坏
-
-- 隔离性 (Isolation): 数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致
-
-- 持久性 (Durability): 事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失
-
-InnoDB 存储引擎提供事务的隔离级别有：
-
-- READ UNCOMMITTED：读未提交
-- READ COMMITTED：不可重复读
-- REPEATABLE READ：可重复读
-- SERIALIZABLE：序列化
-
 ## 索引
+索引（index）是帮助MySQL高效获取数据的数据结构（有序）
 
 索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录
 
-- B+数索引
+#### 索引优势劣势
+优势
+- 提高数据检索的效率，降低数据库的IO成本
+- 通过索引列对数据进行排序，降低数据排序的成本，降低CPU的消耗
+
+
+#### 索引的结构
+- BTREE索引
 - Hash索引
+- RTREE索引（地理空间）
 - 全文索引
 
-常用索引的分类
-
+#### 常用索引的分类
 - 普通索引：普通索引是最基本的索引类型，唯一任务是加快对数据的访问速度，没有任何限制
 - 唯一性索引：唯一性索引是不允许索引列具有相同索引值的索引。创建唯一性索引的目的往往不是为了提高访问速度，而是为了避免数据出现重复。
 - 主键索引：主键索引是一种唯一性索引，即不允许值重复或者值为空，并且每个表只能有一个主键。
-
 - 单列索引
 - 多列索引
 
@@ -312,11 +266,141 @@ alter table t_user drop primary key; # 删除主键, 添加的时候使用的是
 
 ## 视图
 
-站在不同的角度去看数据
+ 视图（View）是一种虚拟存在的表。视图并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。
+
+- 简单
+- 安全
+- 数据独立
+
+创建视图
+
+```sql
+CREATE [OR REPLACE]
+VIEW view_user 
+AS select * from user;
+```
+
+修改视图
+
+```sql
+ALTER VIEW view_user 
+AS select * from user;
+```
+
+查询视图的定义
+
+```sql
+SHOW CREATE VIEW view_user;
+```
+
+删除视图
+
+```sql
+DROP VIEW [IF EXISTS] view_user;
+```
+
+## 存储过程和函数
+
+创建存储过程
+
+```sql
+CREATE PROCEDURE procedure_user([proc_parameter[,...]])
+begin
+	select 'Hello World' -- SQL语句
+end ;
+```
+
+调用存储过程
+
+```sql
+call procedure_user();
+```
+
+查询存储过程
+
+```sql
+-- 查询数据库中所有的存储过程
+select name from mysql.proc where db='study_mysql'
+-- 查询存储过程的状态信息
+show procedure status;
+-- 查询某个存储过程的定义
+show create procedure study_mysql.procedure_user \G;
+```
+
+
+
+删除存储过程
+
+```sql
+DROP PROCEDURE  [IF EXISTS] procedure_user ;
+```
+
+
+
+## Mysql的结构
+
+![](./assert/mysqlStructure.png)
+
+
+
+## 存储引擎
+
+每一个存储引擎都对应一种不同的存储方式。
+
+mysql默认使用的存储引擎是InnoDB方式。
+
+```sql
+# 查看当前mysql支持的存储引擎
+show engines (\G)
+```
+
+常见的存储引擎:
+
+- MySIAM : 这种存储引擎不支持事务
+
+- InnoDB : 支持事务，行级锁，外键，级联删除和级联更新等。这种引擎数据最安全。
+- MEMORY : 查询数据最快, 不支持事务，数据容易丢失，因为表数据和索引都是存储在内存当中
+
+### InnoDB
 
 
 
 
+
+## 事务
+
+一个事务是一个完整的业务逻辑单元，不可再分。必须同时成功，或者同时失败
+
+开启事务	begin
+提交事务（会写到文件）commit
+回滚事务（不会写到文件）rollback
+
+事务控制语句：
+
+- BEGIN : 显式地开启一个事务
+- COMMIT : 提交事务，对数据库进行的所有修改成为永久性的
+- ROLLBACK : 回滚会结束用户的事务，并撤销正在进行的所有未提交的修改，不会修改数据库
+- SAVEPOINT identifier: 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT
+- RELEASE SAVEPOINT identifier  : 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常
+- ROLLBACK TO identifier : 把事务回滚到标记点
+- SET TRANSACTION : 用来设置事务的隔离级别
+
+事务的特征:  事务包括四大特性：ACID
+
+- 原子性 (Atomicity): 事务是最小的工作单元，不可再分
+
+- 一致性 (Consistency): 事务必须保证多条DML语句同时成功或者同时失败, 在事务开始之前和事务结束以后，数据库的完整性没有被破坏
+
+- 隔离性 (Isolation): 数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致
+
+- 持久性 (Durability): 事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失
+
+InnoDB 存储引擎提供事务的隔离级别有：
+
+- READ UNCOMMITTED：读未提交
+- READ COMMITTED：不可重复读
+- REPEATABLE READ：可重复读
+- SERIALIZABLE：序列化
 
 # 二、数据结构
 
