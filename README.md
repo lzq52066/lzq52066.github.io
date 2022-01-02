@@ -363,47 +363,6 @@ show engines (\G)
 
 #### InnoDB
 
-
-
-
-
-## 事务
-
-一个事务是一个完整的业务逻辑单元，不可再分。必须同时成功，或者同时失败
-
-开启事务	begin
-提交事务（会写到文件）commit
-回滚事务（不会写到文件）rollback
-
-事务控制语句：
-
-- BEGIN : 显式地开启一个事务
-- COMMIT : 提交事务，对数据库进行的所有修改成为永久性的
-- ROLLBACK : 回滚会结束用户的事务，并撤销正在进行的所有未提交的修改，不会修改数据库
-- SAVEPOINT identifier: 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT
-- RELEASE SAVEPOINT identifier  : 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常
-- ROLLBACK TO identifier : 把事务回滚到标记点
-- SET TRANSACTION : 用来设置事务的隔离级别
-
-事务的特征:  事务包括四大特性：ACID
-
-- 原子性 (Atomicity): 事务是最小的工作单元，不可再分
-
-- 一致性 (Consistency): 事务必须保证多条DML语句同时成功或者同时失败, 在事务开始之前和事务结束以后，数据库的完整性没有被破坏
-
-- 隔离性 (Isolation): 数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致
-
-- 持久性 (Durability): 事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失
-
-InnoDB 存储引擎提供事务的隔离级别有：
-
-- READ UNCOMMITTED：读未提交
-- READ COMMITTED：不可重复读
-- REPEATABLE READ：可重复读
-- SERIALIZABLE：序列化
-
-
-
 ## SQL优化步骤
 
 #### 查看SQL执行频率
@@ -600,9 +559,181 @@ explain select * from t_user ignore index(unique_user_name) where name = '张三
 explain select * from t_user force index(unique_user_name) where name = '张三';
 ```
 
+## 应用优化
 
+1. 使用数据库连接池
+2. 减少对MySQL的访问
+   - 避免对数据库重复检索
+   - 增加cache
+3. 负载均衡
 
+## 查询缓存优化
 
+Mysql8中已经取消了查询缓存
+
+## MySQL内存管理及优化
+
+#### 内存优化的原则
+
+1. 将尽量多的内存分配给MySQL做缓存，但要给操作系统和其他程序预留足够内存
+2. MyISAM 存储引擎的数据文件读取依赖于操作系统自身的IO缓存，因此，如果有MyISAM表，就要预留更多的内存给操作系统做IO缓存。
+3. 排序区、连接区等缓存是分配给每个数据库会话（session）专用的，其默认值的设置要根据最大连接数合理分配，如果设置太大，不但浪费资源，而且在并发连接较高时会导致物理内存耗尽。
+
+#### MyISAM内存优化
+
+MyISAM存储引擎使用 key_buffer 缓存索引块，加速myisam索引的读写速度。对于myisam表的数据块，mysql没有特别的缓存机制，完全依赖于操作系统的IO缓存。
+
+`key_buffer_size`：决定MyISAM索引块缓存区的大小，直接影响到MyISAM表的存取效率。可以在MySQL参数文件中设置key_buffer_size的值，对于一般MyISAM数据库，建议至少将1/4可用内存分配给key_buffer_size。
+
+```sql
+show variables like 'key_buffer_size'
+```
+
+`read_buffer_size`：如果需要经常顺序扫描MyISAM表，可以通过增大read_buffer_size的值来改善性能。但需要注意的是read_buffer_size是每个session独占的，如果默认值设置太大，就会造成内存浪费。
+
+`read_rnd_buffer_size`：对于需要做排序的MyISAM表的查询，如带有order by子句的sql，适当增加 read_rnd_buffer_size 的值，可以改善此类的sql性能。但需要注意的是 read_rnd_buffer_size 是每个session独占的，如果默认值设置太大，就会造成内存浪费。
+
+#### InnoDB内存优化
+
+innodb用一块内存区做IO缓存池，该缓存池不仅用来缓存innodb的索引块，而且也用来缓存innodb的数据块。
+
+`innodb_buffer_pool_size`：该变量决定了 innodb 存储引擎表数据和索引数据的最大缓存区大小。在保证操作系统及其他程序有足够内存可用的情况下，innodb_buffer_pool_size 的值越大，缓存命中率越高，访问InnoDB表需要的磁盘I/O 就越少，性能也就越高。
+
+`innodb_log_buffer_size`：决定了innodb重做日志缓存的大小，对于可能产生大量更新记录的大事务，增加innodb_log_buffer_size的大小，可以避免innodb在事务提交前就执行不必要的日志写入磁盘操作。
+
+```sql
+innodb_buffer_pool_size=512M
+innodb_log_buffer_size=10M
+```
+
+## MySQL并发参数
+
+从实现上来说，MySQL Server 是多线程结构，包括后台线程和客户服务线程。多线程可以有效利用服务器资源，提高数据库的并发性能。在Mysql中，控制并发连接和线程的主要参数包括 max_connections、back_log、thread_cache_size、table_open_cahce。
+
+#### max_connections
+
+采用max_connections 控制允许连接到MySQL数据库的最大数量，默认值是 151。如果状态变量 connection_errors_max_connections 不为零，并且一直增长，则说明不断有连接请求因数据库连接数已达到允许最大值而失败，这是可以考虑增大max_connections 的值。
+
+Mysql 最大可支持的连接数，取决于很多因素，包括给定操作系统平台的线程库的质量、内存大小、每个连接的负荷、CPU的处理速度，期望的响应时间等。在Linux 平台下，性能好的服务器，支持 500-1000 个连接不是难事，需要根据服务器性能进行评估设定。
+
+#### back_log
+
+back_log 参数控制MySQL监听TCP端口时设置的积压请求栈大小。如果MySql的连接数达到max_connections时，新来的请求将会被存在堆栈中，以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量超过back_log，将不被授予连接资源，将会报错。5.6.6 版本之前默认值为 50 ， 之后的版本默认为 50 + （max_connections / 5）， 但最大不超过900。
+
+如果需要数据库在较短的时间内处理大量连接请求， 可以考虑适当增大back_log 的值。
+
+#### table_open_cache
+
+该参数用来控制所有SQL语句执行线程可打开表缓存的数量， 而在执行SQL语句时，每一个SQL执行线程至少要打开 1 个表缓存。该参数的值应该根据设置的最大连接数 max_connections 以及每个连接执行关联查询中涉及的表的最大数量来设定 ：
+
+ max_connections x N ；
+
+#### thread_cache_size
+
+为了加快连接数据库的速度，MySQL 会缓存一定数量的客户服务线程以备重用，通过参数 thread_cache_size 可控制 MySQL 缓存客户服务线程的数量。
+
+#### innodb_lock_wait_timeout
+
+该参数是用来设置InnoDB 事务等待行锁的时间，默认值是50ms ， 可以根据需要进行动态设置。对于需要快速反馈的业务系统来说，可以将行锁的等待时间调小，以避免事务长时间挂起； 对于后台运行的批量处理程序来说， 可以将行锁的等待时间调大， 以避免发生大的回滚操作。
+
+## MySQL的锁
+
+#### 锁分类
+
+> 从对数据操作的粒度分:
+>
+> -  表锁：操作时，会锁定整个表
+> - 行锁：操作时，会锁定当前操作行。
+>
+> 从对数据操作的类型分:
+>
+> - 读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。
+> - 写锁（排它锁）：当前操作没有完成之前，它会阻断其他写锁和读锁。
+
+#### MySQL锁
+
+相对其他数据库而言，MySQL的锁机制比较简单，其最显著的特点是不同的存储引擎支持不同的锁机制。下表中罗列出了各存储引擎对锁的支持情况：
+
+| 存储引擎 | 表级锁 | 行级锁 | 页面锁 |
+| -------- | ------ | ------ | ------ |
+| MyISAM   | 支持   | 不支持 | 不支持 |
+| InnoDB   | 支持   | 支持   | 不支持 |
+| MEMORY   | 支持   | 不支持 | 不支持 |
+| BDB      | 支持   | 不支持 | 支持   |
+
+MySQL这3种锁的特性可大致归纳如下 ：
+
+- 表级锁：偏向MyISAM 存储引擎，开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高,并发度最低。
+- 行级锁：偏向InnoDB 存储引擎，开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。
+- 页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。
+
+#### InnoDB 行锁
+
+行锁特点 ：偏向InnoDB 存储引擎，开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。
+
+InnoDB 与 MyISAM 的最大不同有两点：一是支持事务；二是 采用了行级锁。
+
+#### 事务
+
+一个事务是一个完整的业务逻辑单元，不可再分。必须同时成功，或者同时失败
+
+开启事务	begin
+提交事务（会写到文件）commit
+回滚事务（不会写到文件）rollback
+
+事务控制语句：
+
+- BEGIN : 显式地开启一个事务
+- COMMIT : 提交事务，对数据库进行的所有修改成为永久性的
+- ROLLBACK : 回滚会结束用户的事务，并撤销正在进行的所有未提交的修改，不会修改数据库
+- SAVEPOINT identifier: 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT
+- RELEASE SAVEPOINT identifier  : 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常
+- ROLLBACK TO identifier : 把事务回滚到标记点
+- SET TRANSACTION : 用来设置事务的隔离级别
+
+事务的特征:  事务包括四大特性：ACID
+
+- 原子性 (Atomicity): 事务是最小的工作单元，不可再分
+- 一致性 (Consistency): 事务必须保证多条DML语句同时成功或者同时失败, 在事务开始之前和事务结束以后，数据库的完整性没有被破坏
+- 隔离性 (Isolation): 数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致
+- 持久性 (Durability): 事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失
+
+并发事务带来的问题
+
+- Lost Update：丢失更新 
+- Dirty Reads：脏读
+- Non-Repeatable Reads：不可重复读
+- Phantom Reads：幻读
+
+InnoDB 存储引擎提供事务的隔离级别有：
+
+- READ UNCOMMITTED：读未提交
+- READ COMMITTED：不可重复读
+- REPEATABLE READ：可重复读 （MySQL默认）
+- SERIALIZABLE：序列化
+
+```sql
+# 查看MySQL中默认的隔离级别
+show variables like 'transaction_isolation';
+```
+
+#### MySQL的行锁模式
+
+InnoDB 实现了以下两种类型的行锁
+
+- 共享锁（S）：又称为读锁，简称S锁，共享锁就是多个事务对于同一数据可以共享一把锁，都能访问到数据，但是只能读不能修改
+- 排他锁（X）：又称为写锁，简称X锁，排他锁就是不能与其他锁并存，如一个事务获取了一个数据行的排他锁，其他事务就不能再获取该行的其他锁，包括共享锁和排他锁，但是获取排他锁的事务是可以对数据就行读取和修改。
+
+对于UPDATE、DELETE和INSERT语句，InnoDB会自动给涉及数据集加排他锁（X)；
+对于普通SELECT语句，InnoDB不会加任何锁；
+
+```sql
+# 可以通过以下语句显示给记录集加共享锁或排他锁 。
+#共享锁（S）：
+SELECT * FROM table_name WHERE ... LOCK IN SHARE MODE
+#排他锁（X) ：
+SELECT * FROM table_name WHERE ... FOR UPDATE
+```
 
 
 
