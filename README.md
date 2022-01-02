@@ -210,7 +210,7 @@ truncate table t_user #表被截断, 不可撤销, 永久丢失, (删除大文�
 > 外键约束：（foreign key）简称FK
 > 检查约束：（check)
 
-## 索引
+## 索引概述
 索引（index）是帮助MySQL高效获取数据的数据结构（有序）
 
 索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录
@@ -401,6 +401,214 @@ InnoDB 存储引擎提供事务的隔离级别有：
 - READ COMMITTED：不可重复读
 - REPEATABLE READ：可重复读
 - SERIALIZABLE：序列化
+
+
+
+## SQL优化步骤
+
+#### 查看SQL执行频率
+
+```sql
+# 当前连接 7个占位符
+show status like 'Com_______' ; 
+#全局
+show global status like 'Com_______' ; 
+
+#innodb表来说
+show status like 'Innodb_rows_%';
+#Innodb 执行影响的行数 
+#Innodb_rows_deleted	88918
+#Innodb_rows_inserted	434506
+#Innodb_rows_read	16751813
+#Innodb_rows_updated	121266
+```
+
+- show processlist：慢查询日志在查询结束以后才纪录，所以在应用反映执行效率出现问题的时候查询慢查询日志并不能定位问题，可以使用show processlist命令查看当前MySQL在进行的线程，包括线程的状态、是否锁表等，可以实时地查看 SQL 的执行情况，同时对一些锁表操作进行优化。
+- 慢查询日志 : 通过慢查询日志定位那些执行效率较低的 SQL 语句，用–log-slow-queries[=file_name]选项启动时，mysqld 写一个包含所有执行时间超过 long_query_time 秒的 SQL 语句的日志文件。
+
+#### explain
+
+|     字段      | 含义                                                         |
+| :-----------: | ------------------------------------------------------------ |
+|      id       | select查询的序列号，是一组数字，表示的是查询中执行select子句或者是操作表的顺序。 |
+|  select_type  | 表示SELECT的类型，常见的取值有SIMPLE（简单表，即不适用表连接或者子查询）、PRIMARY(主查询，即外层的查询)、UNION（UNION中的第二个或者后面的查询语句）、SUBQUERY(子查询的第一个SELECT) |
+|     table     | 输出结果集                                                   |
+|  partitions   |                                                              |
+|     type      | 表示表的连接类型，性能由好到坏的连接类型为（NULL，system，const，eq_ref，ref，range，index，all） |
+| possible_keys | 表示查询时，可能使用的索引                                   |
+|      key      | 表示实际使用的索引                                           |
+|    key_len    | 索引字段的长度,该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下， 长度越短越好 |
+|      ref      |                                                              |
+|     rows      | 扫描行的数量                                                 |
+|   filtered    |                                                              |
+|     extra     | 执行情况的说明和描述                                         |
+
+一般来说，我们需要保证查询至少达到range级别，最好达到ref
+
+| extra                    | 含义                                                         |
+| ------------------------ | ------------------------------------------------------------ |
+| using filesort           | 说明mysql会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取， 称为 “文件排序”. |
+| using temporary          | 使用了临时表保存中间结果，MySQL在对查询结果排序时使用临时表。常见于 order by 和 group by. |
+| using index              | 表示相应的select操作使用了覆盖索引， 避免访问表的数据行， 效率不错。 |
+| using where              | 在查询使用索引的情况下，需要回表查询数据                     |
+| using index condition    | 查找使用了索引，但是需要回表查询数据                         |
+| using index; using where | 查找使用了索引，但是查询的数据都在索引列中找得到，不需要回表 |
+
+#### show profile
+
+MySQL从5.0.37版本开始增加了对 show profiles 和 show profile 语句的支持
+show profiles 能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。
+
+```sql
+# 通过 have_profiling 参数，能够看到当前MySQL是否支持profile：
+select @@have_profiling;
+
+# 默认profiling是关闭的，可以通过set语句在Session级别开启profiling：
+select @@profiling;
+set profiling=1;
+
+# 所有sql的耗时情况
+show profiles;
+# 具体sql的每一步骤耗时
+show profile for query 188;
+```
+
+#### trace分析优化器执行计划
+
+MySQL5.6提供了对SQL的跟踪trace, 通过trace文件能够进一步了解为什么优化器选择A计划, 而不是选择B计划。
+
+(mysql8.0待验证)
+
+```sql
+#打开trace ， 设置格式为 JSON，并设置trace最大能够使用的内存大小，避免解析过程中因为默认内存过小而不能够完整展示。
+SET optimizer_trace="enabled=on",end_markers_in_json=on;
+set optimizer_trace_max_mem_size=1000000;
+
+#执行sql后，执行此条可查询
+select * from information_schema.optimizer_trace ;
+```
+
+## 索引的使用
+
+避免索引失效
+
+>1. 全值匹配，对索引中的所有列都指定具体的值
+>2. 最左前缀法则，查询从最左开始，不跳过索引字段
+>3. 范围查询右边的列不走索引，范围查询后的字段索引失效
+>4. 不能在索引列上运算操作
+>5. 符串类型不加单引号，底层隐式转换成字符串类型，索引失效
+>6. 尽量使用覆盖索引，避免使用 `select *`，只访问索引的查询，索引列完全包括的列，避免回表
+>7. 用or分割的条件，如过or其中一个条件没索引，所有的索引都失效
+>8. 以%开头的like模糊匹配，索引失效。可以直接使用覆盖索引
+>9. MySQL评估使用索引比全表更慢，则不使用索引
+>10. is NULL , is not NULL 有时索引失效，由mysql底层处理，NULL值多少
+>11. in走索引，not in索引失效 ，尽量不用not in
+>12. 单列索引和复合索引，尽量使用复合索引，少使用单例索引; 多个单例索引只会使用1个索引（辨识度最高）
+
+查看索引使用情况
+
+```sql
+show status like 'Handler_read%';	
+show global status like 'Handler_read%';	
+```
+
+## SQL优化
+
+#### 大批量插入数据
+
+当使用load 命令导入数据的时候，适当的设置可以提高导入的效率
+
+- 主键顺序插入
+- 关闭唯一性校验 SET UNIQUE_CHECKS=0
+- 手动提交事务  SET AUTOCOMMIT=0
+
+#### 优化insert语句
+
+- 如果需要同时对一张表插入很多行数据时，应该尽量使用一个insert语句批量插入
+- 手动提交事务
+- 数据有序插入
+
+#### 优化order by语句
+
+两种排序方式：
+
+- filesort排序，不是通过索引直接返回排序结果的排序都叫 FileSort 排序
+- using index排序，通过有序索引顺序扫描直接返回有序数据，不需要额外排序，操作效率高
+
+ Filesort 的优化
+
+通过创建合适的索引，能够减少 Filesort 的出现，但是在某些情况下，条件限制不能让Filesort消失，那就需要加快 Filesort的排序操作。对于Filesort ， MySQL 有两种排序算法：
+
+- 两次扫描算法 ：MySQL4.1 之前，使用该方式排序。首先根据条件取出排序字段和行指针信息，然后在排序区 sort buffer 中排序，如果sort buffer不够，则在临时表 temporary table 中存储排序结果。完成排序之后，再根据行指针回表读取记录，该操作可能会导致大量随机I/O操作。
+- 一次扫描算法：一次性取出满足条件的所有字段，然后在排序区 sort buffer 中排序后直接输出结果集。排序时内存开销较大，但是排序效率比两次扫描算法要高。
+
+MySQL 通过比较系统变量 `max_length_for_sort_data `的大小和Query语句取出的字段总大小， 来判定是否那种排序算法，如果max_length_for_sort_data 更大，那么使用第二种优化之后的算法；否则使用第一种。
+
+可以适当提高 `sort_buffer_size `和 `max_length_for_sort_data`系统变量，来增大排序区的大小，提高排序的效率。
+
+```sql
+show VARIABLES like 'sort_buffer_size';
+show VARIABLES like 'max_length_for_sort_data';
+```
+
+#### 优化group by语句
+
+由于GROUP BY 实际上也同样会进行排序操作，而且与ORDER BY 相比，GROUP BY 主要只是多了排序之后的分组操作。当然，如果在分组的时候还使用了其他的一些聚合函数，那么还需要一些聚合函数的计算。所以，在GROUP BY 的实现过程中，与 ORDER BY 一样也可以利用到索引。
+
+- 如果查询包含 group by 但是用户想要避免排序结果的消耗， 则可以执行order by null 禁止排序
+
+```sql
+explain select age,count(*) from t_user group by age order by null;
+```
+
+- 创建索引
+
+#### 优化嵌套查询
+
+子查询是可以被更高效的连接（JOIN）替代
+
+#### 优化or条件
+
+- 对于包含OR的查询子句，如果要利用索引，则OR之间的每个条件列都必须用到索引 ， 而且不能使用到复合索引； 如果没有索引，则应该考虑增加索引。
+- 通过union替换or
+
+type 显示的是访问类型，是较为重要的一个指标，结果值从好到坏依次是：
+
+```md
+system > const > eq_ref > ref > fulltext > ref_or_null  > index_merge > unique_subquery > index_subquery > range > index > ALL
+```
+
+#### 优化分页查询
+
+一般分页查询时，通过创建覆盖索引能够比较好地提高性能。一个常见又非常头疼的问题就是 limit 2000000,10 ，此时需要MySQL排序前2000010 记录，仅仅返回2000000 - 2000010 的记录，其他记录丢弃，查询排序的代价非常大 。
+
+- 在索引上完成排序分页操作，最后根据主键关联回原表查询所需要的其他列内容。
+- 主键自增的表，可以把Limit 查询转换成某个位置的查询 。
+
+#### 使用SQL提示
+
+- USE INDEX：在查询语句中表名的后面，添加 use index 来提供希望MySQL去参考的索引列表，就可以让MySQL不再考虑其他可用的索引。
+- IGNORE INDEX：如果用户只是单纯的想让MySQL忽略一个或者多个索引，则可以使用 ignore index 作为 hint 。
+- FORCE INDEX：为强制MySQL使用一个特定的索引，可在查询中使用 force index 作为hint 。
+
+```sql
+# USE INDEX 建议走索引unique_user_name
+explain select * from t_user using index(unique_user_name) where name = '张三';
+# IGNORE INDEX 忽略走索引unique_user_name
+explain select * from t_user ignore index(unique_user_name) where name = '张三';
+# FORCE INDEX 强制走索引unique_user_name
+explain select * from t_user force index(unique_user_name) where name = '张三';
+```
+
+
+
+
+
+
+
+
+
+
 
 # 二、数据结构
 
