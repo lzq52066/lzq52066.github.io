@@ -215,19 +215,19 @@ truncate table t_user #表被截断, 不可撤销, 永久丢失, (删除大文�
 
 索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录
 
-#### 索引优势劣势
+### 索引优势劣势
 优势
 - 提高数据检索的效率，降低数据库的IO成本
 - 通过索引列对数据进行排序，降低数据排序的成本，降低CPU的消耗
 
 
-#### 索引的结构
+### 索引的结构
 - BTREE索引
 - Hash索引
 - RTREE索引（地理空间）
 - 全文索引
 
-#### 常用索引的分类
+### 常用索引的分类
 - 普通索引：普通索引是最基本的索引类型，唯一任务是加快对数据的访问速度，没有任何限制
 - 唯一性索引：唯一性索引是不允许索引列具有相同索引值的索引。创建唯一性索引的目的往往不是为了提高访问速度，而是为了避免数据出现重复。
 - 主键索引：主键索引是一种唯一性索引，即不允许值重复或者值为空，并且每个表只能有一个主键。
@@ -361,11 +361,11 @@ show engines (\G)
 - InnoDB : 支持事务，行级锁，外键，级联删除和级联更新等。这种引擎数据最安全。
 - MEMORY : 查询数据最快, 不支持事务，数据容易丢失，因为表数据和索引都是存储在内存当中
 
-#### InnoDB
+### InnoDB
 
 ## SQL优化步骤
 
-#### 查看SQL执行频率
+### 查看SQL执行频率
 
 ```sql
 # 当前连接 7个占位符
@@ -385,7 +385,7 @@ show status like 'Innodb_rows_%';
 - show processlist：慢查询日志在查询结束以后才纪录，所以在应用反映执行效率出现问题的时候查询慢查询日志并不能定位问题，可以使用show processlist命令查看当前MySQL在进行的线程，包括线程的状态、是否锁表等，可以实时地查看 SQL 的执行情况，同时对一些锁表操作进行优化。
 - 慢查询日志 : 通过慢查询日志定位那些执行效率较低的 SQL 语句，用–log-slow-queries[=file_name]选项启动时，mysqld 写一个包含所有执行时间超过 long_query_time 秒的 SQL 语句的日志文件。
 
-#### explain
+### explain
 
 |     字段      | 含义                                                         |
 | :-----------: | ------------------------------------------------------------ |
@@ -413,7 +413,7 @@ show status like 'Innodb_rows_%';
 | using index condition    | 查找使用了索引，但是需要回表查询数据                         |
 | using index; using where | 查找使用了索引，但是查询的数据都在索引列中找得到，不需要回表 |
 
-#### show profile
+### show profile
 
 MySQL从5.0.37版本开始增加了对 show profiles 和 show profile 语句的支持
 show profiles 能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。
@@ -432,7 +432,7 @@ show profiles;
 show profile for query 188;
 ```
 
-#### trace分析优化器执行计划
+### trace分析优化器执行计划
 
 MySQL5.6提供了对SQL的跟踪trace, 通过trace文件能够进一步了解为什么优化器选择A计划, 而不是选择B计划。
 
@@ -473,7 +473,7 @@ show global status like 'Handler_read%';
 
 ## SQL优化
 
-#### 大批量插入数据
+### 大批量插入数据
 
 当使用load 命令导入数据的时候，适当的设置可以提高导入的效率
 
@@ -481,13 +481,13 @@ show global status like 'Handler_read%';
 - 关闭唯一性校验 SET UNIQUE_CHECKS=0
 - 手动提交事务  SET AUTOCOMMIT=0
 
-#### 优化insert语句
+### 优化insert语句
 
 - 如果需要同时对一张表插入很多行数据时，应该尽量使用一个insert语句批量插入
 - 手动提交事务
 - 数据有序插入
 
-#### 优化order by语句
+### 优化order by语句
 
 两种排序方式：
 
@@ -510,7 +510,7 @@ show VARIABLES like 'sort_buffer_size';
 show VARIABLES like 'max_length_for_sort_data';
 ```
 
-#### 优化group by语句
+### 优化group by语句
 
 由于GROUP BY 实际上也同样会进行排序操作，而且与ORDER BY 相比，GROUP BY 主要只是多了排序之后的分组操作。当然，如果在分组的时候还使用了其他的一些聚合函数，那么还需要一些聚合函数的计算。所以，在GROUP BY 的实现过程中，与 ORDER BY 一样也可以利用到索引。
 
@@ -522,11 +522,11 @@ explain select age,count(*) from t_user group by age order by null;
 
 - 创建索引
 
-#### 优化嵌套查询
+### 优化嵌套查询
 
 子查询是可以被更高效的连接（JOIN）替代
 
-#### 优化or条件
+### 优化or条件
 
 - 对于包含OR的查询子句，如果要利用索引，则OR之间的每个条件列都必须用到索引 ， 而且不能使用到复合索引； 如果没有索引，则应该考虑增加索引。
 - 通过union替换or
@@ -537,14 +537,14 @@ type 显示的是访问类型，是较为重要的一个指标，结果值从好
 system > const > eq_ref > ref > fulltext > ref_or_null  > index_merge > unique_subquery > index_subquery > range > index > ALL
 ```
 
-#### 优化分页查询
+### 优化分页查询
 
 一般分页查询时，通过创建覆盖索引能够比较好地提高性能。一个常见又非常头疼的问题就是 limit 2000000,10 ，此时需要MySQL排序前2000010 记录，仅仅返回2000000 - 2000010 的记录，其他记录丢弃，查询排序的代价非常大 。
 
 - 在索引上完成排序分页操作，最后根据主键关联回原表查询所需要的其他列内容。
 - 主键自增的表，可以把Limit 查询转换成某个位置的查询 。
 
-#### 使用SQL提示
+### 使用SQL提示
 
 - USE INDEX：在查询语句中表名的后面，添加 use index 来提供希望MySQL去参考的索引列表，就可以让MySQL不再考虑其他可用的索引。
 - IGNORE INDEX：如果用户只是单纯的想让MySQL忽略一个或者多个索引，则可以使用 ignore index 作为 hint 。
@@ -573,13 +573,13 @@ Mysql8中已经取消了查询缓存
 
 ## MySQL内存管理及优化
 
-#### 内存优化的原则
+### 内存优化的原则
 
 1. 将尽量多的内存分配给MySQL做缓存，但要给操作系统和其他程序预留足够内存
 2. MyISAM 存储引擎的数据文件读取依赖于操作系统自身的IO缓存，因此，如果有MyISAM表，就要预留更多的内存给操作系统做IO缓存。
 3. 排序区、连接区等缓存是分配给每个数据库会话（session）专用的，其默认值的设置要根据最大连接数合理分配，如果设置太大，不但浪费资源，而且在并发连接较高时会导致物理内存耗尽。
 
-#### MyISAM内存优化
+### MyISAM内存优化
 
 MyISAM存储引擎使用 key_buffer 缓存索引块，加速myisam索引的读写速度。对于myisam表的数据块，mysql没有特别的缓存机制，完全依赖于操作系统的IO缓存。
 
@@ -593,7 +593,7 @@ show variables like 'key_buffer_size'
 
 `read_rnd_buffer_size`：对于需要做排序的MyISAM表的查询，如带有order by子句的sql，适当增加 read_rnd_buffer_size 的值，可以改善此类的sql性能。但需要注意的是 read_rnd_buffer_size 是每个session独占的，如果默认值设置太大，就会造成内存浪费。
 
-#### InnoDB内存优化
+### InnoDB内存优化
 
 innodb用一块内存区做IO缓存池，该缓存池不仅用来缓存innodb的索引块，而且也用来缓存innodb的数据块。
 
@@ -610,35 +610,35 @@ innodb_log_buffer_size=10M
 
 从实现上来说，MySQL Server 是多线程结构，包括后台线程和客户服务线程。多线程可以有效利用服务器资源，提高数据库的并发性能。在Mysql中，控制并发连接和线程的主要参数包括 max_connections、back_log、thread_cache_size、table_open_cahce。
 
-#### max_connections
+### max_connections
 
 采用max_connections 控制允许连接到MySQL数据库的最大数量，默认值是 151。如果状态变量 connection_errors_max_connections 不为零，并且一直增长，则说明不断有连接请求因数据库连接数已达到允许最大值而失败，这是可以考虑增大max_connections 的值。
 
 Mysql 最大可支持的连接数，取决于很多因素，包括给定操作系统平台的线程库的质量、内存大小、每个连接的负荷、CPU的处理速度，期望的响应时间等。在Linux 平台下，性能好的服务器，支持 500-1000 个连接不是难事，需要根据服务器性能进行评估设定。
 
-#### back_log
+### back_log
 
 back_log 参数控制MySQL监听TCP端口时设置的积压请求栈大小。如果MySql的连接数达到max_connections时，新来的请求将会被存在堆栈中，以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量超过back_log，将不被授予连接资源，将会报错。5.6.6 版本之前默认值为 50 ， 之后的版本默认为 50 + （max_connections / 5）， 但最大不超过900。
 
 如果需要数据库在较短的时间内处理大量连接请求， 可以考虑适当增大back_log 的值。
 
-#### table_open_cache
+### table_open_cache
 
 该参数用来控制所有SQL语句执行线程可打开表缓存的数量， 而在执行SQL语句时，每一个SQL执行线程至少要打开 1 个表缓存。该参数的值应该根据设置的最大连接数 max_connections 以及每个连接执行关联查询中涉及的表的最大数量来设定 ：
 
  max_connections x N ；
 
-#### thread_cache_size
+### thread_cache_size
 
 为了加快连接数据库的速度，MySQL 会缓存一定数量的客户服务线程以备重用，通过参数 thread_cache_size 可控制 MySQL 缓存客户服务线程的数量。
 
-#### innodb_lock_wait_timeout
+### innodb_lock_wait_timeout
 
 该参数是用来设置InnoDB 事务等待行锁的时间，默认值是50ms ， 可以根据需要进行动态设置。对于需要快速反馈的业务系统来说，可以将行锁的等待时间调小，以避免事务长时间挂起； 对于后台运行的批量处理程序来说， 可以将行锁的等待时间调大， 以避免发生大的回滚操作。
 
 ## MySQL的锁
 
-#### 锁分类
+### 锁分类
 
 > 从对数据操作的粒度分:
 >
@@ -650,7 +650,7 @@ back_log 参数控制MySQL监听TCP端口时设置的积压请求栈大小。如
 > - 读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。
 > - 写锁（排它锁）：当前操作没有完成之前，它会阻断其他写锁和读锁。
 
-#### MySQL锁
+### MySQL锁
 
 相对其他数据库而言，MySQL的锁机制比较简单，其最显著的特点是不同的存储引擎支持不同的锁机制。下表中罗列出了各存储引擎对锁的支持情况：
 
@@ -667,13 +667,13 @@ MySQL这3种锁的特性可大致归纳如下 ：
 - 行级锁：偏向InnoDB 存储引擎，开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。
 - 页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。
 
-#### InnoDB 行锁
+### InnoDB 行锁
 
 行锁特点 ：偏向InnoDB 存储引擎，开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。
 
 InnoDB 与 MyISAM 的最大不同有两点：一是支持事务；二是 采用了行级锁。
 
-#### 事务
+### 事务
 
 一个事务是一个完整的业务逻辑单元，不可再分。必须同时成功，或者同时失败
 
@@ -717,7 +717,7 @@ InnoDB 存储引擎提供事务的隔离级别有：
 show variables like 'transaction_isolation';
 ```
 
-#### MySQL的行锁模式
+### MySQL的行锁模式
 
 InnoDB 实现了以下两种类型的行锁
 
@@ -737,7 +737,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE
 
 ## MySQL日志
 
-#### 错误日志
+### 错误日志
 
 错误日志是 MySQL 中最重要的日志之一，它记录了当 mysqld 启动和停止时，以及服务器在运行过程中发生任何严重错误时的相关信息。当数据库出现任何故障导致无法正常使用时，可以首先查看此日志。
 
@@ -748,7 +748,7 @@ show variables like 'log_error%';
 
 
 
-#### 二进制日志
+### 二进制日志
 
 二进制日志（BINLOG）记录了所有的 DDL（数据定义语言）语句和 DML（数据操纵语言）语句，但是不包括数据查询语句。此日志对于灾难时的数据恢复起着极其重要的作用，MySQL的主从复制， 就是通过该binlog实现的。
 
@@ -774,7 +774,7 @@ mysqlbinlog -vv binlog.000002
 >- purge master logs before 'yyyy-mm-dd hh24:mi:ss' ;   该命令将删除日志为 “yyyy-mm-dd hh24:mi:ss” 之前产生的所有日志
 >- expire_logs_days=#    此参数的含义是设置日志的过期天数， 过了指定的天数后日志将会被自动删除，这样将有利于减少DBA 管理日志的工作量。
 
-#### 查询日志
+### 查询日志
 
 查询日志中记录了客户端的所有操作语句，而二进制日志不包含查询数据的SQL语句。
 
@@ -787,7 +787,7 @@ general_log=ON
 general_log_file=/var/lib/mysql/mysql-query.log
 ```
 
-#### 慢查询日志
+### 慢查询日志
 
 慢查询日志记录了所有执行时间超过参数 long_query_time 设置值并且扫描记录数不小于 min_examined_row_limit 的所有的SQL语句的日志。long_query_time 默认为 10 秒，最小为 0， 精度可以到微秒。
 
@@ -812,13 +812,13 @@ mysqldumpslow mysql-slow-query.log
 
 MySQL支持一台主库同时向多台从库进行复制， 从库同时也可以作为其他从服务器的主库，实现链状复制。
 
-#### 复制的原理
+### 复制的原理
 
 1. Master 主库在事务提交时，会把数据变更作为时间 Events 记录在二进制日志文件 Binlog 中
 2. 主库推送二进制日志文件 Binlog 中的日志事件到从库的中继日志 Relay Log 。
 3. slave重做中继日志中的事件，将改变反映它自己的数据。
 
-#### 复制的优势
+### 复制的优势
 
 - 主库出现问题，可以快速切换到从库提供服务。
 - 可以在从库上执行查询操作，从主库中更新，实现读写分离，降低主库的访问压力。
