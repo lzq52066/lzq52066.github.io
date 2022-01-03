@@ -735,6 +735,95 @@ SELECT * FROM table_name WHERE ... LOCK IN SHARE MODE
 SELECT * FROM table_name WHERE ... FOR UPDATE
 ```
 
+## MySQL日志
+
+#### 错误日志
+
+错误日志是 MySQL 中最重要的日志之一，它记录了当 mysqld 启动和停止时，以及服务器在运行过程中发生任何严重错误时的相关信息。当数据库出现任何故障导致无法正常使用时，可以首先查看此日志。
+
+```sql
+# 查询错误日志的地址
+show variables like 'log_error%';
+```
+
+
+
+#### 二进制日志
+
+二进制日志（BINLOG）记录了所有的 DDL（数据定义语言）语句和 DML（数据操纵语言）语句，但是不包括数据查询语句。此日志对于灾难时的数据恢复起着极其重要的作用，MySQL的主从复制， 就是通过该binlog实现的。
+
+二进制日志，默认情况下是没有开启的，需要到MySQL的配置文件中开启，并配置MySQL日志的格式。配置时，给定了文件名但是没有指定路径，日志默认写入Mysql的数据目录。
+
+> - **STATEMENT**：该日志格式在日志文件中记录的都是SQL语句（statement），每一条对数据进行修改的SQL都会记录在日志文件中，通过Mysql提供的mysqlbinlog工具，可以清晰的查看到每条语句的文本。主从复制的时候，从库（slave）会将日志解析为原文本，并在从库重新执行一次。
+> - **ROW**：该日志格式在日志文件中记录的是每一行的数据变更，而不是记录SQL语句。比如，执行SQL语句 ： update tb_book set status=‘1’ , 如果是STATEMENT 日志格式，在日志中会记录一行SQL文件； 如果是ROW，由于是对全表进行更新，也就是每一行记录都会发生变更，ROW 格式的日志中会记录每一行的数据变更。
+> - **MIXED**：这是目前MySQL默认的日志格式，即混合了STATEMENT 和 ROW两种格式。默认情况下采用STATEMENT，但是在一些特殊情况下采用ROW来进行记录。MIXED 格式能尽量利用两种模式的优点，而避开他们的缺点。
+
+查看二进制日志：
+
+```sql
+# 查看STATEMENT日志
+mysqlbinlog binlog.000001；
+# 查看ROW日志
+mysqlbinlog -vv binlog.000002 
+```
+
+日志删除
+
+>- Reset Master;    删除全部 binlog 日志
+>- purge master logs to 'binlog.000010' ;   该命令将删除 000010编号之前的所有日志。
+>- purge master logs before 'yyyy-mm-dd hh24:mi:ss' ;   该命令将删除日志为 “yyyy-mm-dd hh24:mi:ss” 之前产生的所有日志
+>- expire_logs_days=#    此参数的含义是设置日志的过期天数， 过了指定的天数后日志将会被自动删除，这样将有利于减少DBA 管理日志的工作量。
+
+#### 查询日志
+
+查询日志中记录了客户端的所有操作语句，而二进制日志不包含查询数据的SQL语句。
+
+默认情况下， 查询日志是未开启的。如果需要开启查询日志，可以设置以下配置 ：
+
+```sql
+#该选项用来开启查询日志 ， 可选值 ： ON 或者 OFF ； OFF代表关闭，ON代表开启 
+general_log=ON
+#设置日志的文件名 ， 如果没有指定， 默认的文件名为 host_name.log 
+general_log_file=/var/lib/mysql/mysql-query.log
+```
+
+#### 慢查询日志
+
+慢查询日志记录了所有执行时间超过参数 long_query_time 设置值并且扫描记录数不小于 min_examined_row_limit 的所有的SQL语句的日志。long_query_time 默认为 10 秒，最小为 0， 精度可以到微秒。
+
+```sql
+# 该参数用来控制慢查询日志是否开启， 可取值： 1 和 0 ， 1 代表开启， 0 代表关闭
+slow_query_log=1 
+# 该参数用来指定慢查询日志的文件名
+slow_query_log_file=/var/lib/mysqlslow_query.log
+# 该选项用来配置查询的时间限制， 超过这个时间将认为值慢查询， 将需要进行日志记录， 默认10s
+long_query_time=10
+```
+
+如果慢查询日志内容很多， 直接查看文件，比较麻烦， 这个时候可以借助于mysql自带的 mysqldumpslow 工具， 来对慢查询日志进行分类汇总。
+
+```bash
+mysqldumpslow mysql-slow-query.log
+```
+
+## MySQL复制
+
+复制是指将主数据库的DDL 和 DML 操作通过二进制日志传到从库服务器中，然后在从库上对这些日志重新执行（也叫重做），从而使得从库和主库的数据保持同步。
+
+MySQL支持一台主库同时向多台从库进行复制， 从库同时也可以作为其他从服务器的主库，实现链状复制。
+
+#### 复制的原理
+
+1. Master 主库在事务提交时，会把数据变更作为时间 Events 记录在二进制日志文件 Binlog 中
+2. 主库推送二进制日志文件 Binlog 中的日志事件到从库的中继日志 Relay Log 。
+3. slave重做中继日志中的事件，将改变反映它自己的数据。
+
+#### 复制的优势
+
+- 主库出现问题，可以快速切换到从库提供服务。
+- 可以在从库上执行查询操作，从主库中更新，实现读写分离，降低主库的访问压力。
+- 可以在从库中执行备份，以避免备份期间影响主库的服务。
+
 
 
 
